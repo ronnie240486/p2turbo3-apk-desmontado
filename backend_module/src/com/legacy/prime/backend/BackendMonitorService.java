@@ -65,7 +65,9 @@ public final class BackendMonitorService extends Service {
                     .putInt("backend_list_count", count)
                     .putString("backend_lists_json", response)
                     .apply();
-            return importListsIntoNativeDatabase(context, response);
+            boolean imported = importListsIntoNativeDatabase(context, response);
+            prepareNativeSession(context, root);
+            return imported;
         } catch (Exception ignored) {
             return false;
         }
@@ -106,6 +108,55 @@ public final class BackendMonitorService extends Service {
             return true;
         } catch (Exception ignored) {
             return false;
+        }
+    }
+
+    private static void prepareNativeSession(Context context, JSONObject root) {
+        try {
+            JSONArray data = root.optJSONArray("data");
+            if (data == null || data.length() == 0) {
+                return;
+            }
+            JSONObject first = data.optJSONObject(0);
+            if (first == null) {
+                return;
+            }
+            String url = first.optString("url", first.optString("dns_base", "")).trim();
+            while (url.endsWith("/") && url.length() > 0) {
+                url = url.substring(0, url.length() - 1);
+            }
+            String username = first.optString("username", first.optString("user", ""));
+            String password = first.optString("password", "");
+            String id = first.optString("id", "1");
+            String format = first.optString("type", first.optString("format", "xtream"));
+
+            SharedPreferences user = context.getSharedPreferences("UserSetting", MODE_PRIVATE);
+            user.edit()
+                    .putString("dns_base", url)
+                    .putString("username", username)
+                    .putString("password", password)
+                    .putInt("item_count", data.length())
+                    .putString("isloged", "true")
+                    .putString("activity_type", "mac")
+                    .putString("id_lista", id)
+                    .putString("format", format)
+                    .putBoolean("streaming", true)
+                    .apply();
+
+            SharedPreferences session = context.getSharedPreferences("streambox_sph", MODE_PRIVATE);
+            session.edit()
+                    .putString("username", username)
+                    .putString("password", password)
+                    .putString("login_type", "one_ui")
+                    .putBoolean("first_open", false)
+                    .putBoolean("islogged", true)
+                    .putBoolean("autologin", true)
+                    .putInt("live_format", 1)
+                    .putString("status", "1")
+                    .putInt("auth", 1)
+                    .apply();
+        } catch (Exception ignored) {
+            // Session preparation must not crash the gate.
         }
     }
 

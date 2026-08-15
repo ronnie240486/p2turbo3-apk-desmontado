@@ -81,3 +81,9 @@ O módulo está em `backend_module/` e é empacotado como `classes2.dex`, enquan
 A build `artifacts/Infinitus-3.1-backend-mac.apk` exibe o logo do Infinitus, o nome do aplicativo, o identificador estável do dispositivo em 12 dígitos e o botão `Copiar MAC`. O valor copiado deve ser colado no painel e associado à lista do aparelho. Depois do cadastro, o usuário toca em `Tentar novamente`; o APK valida o MAC, busca a lista do painel, importa as credenciais no banco nativo e prossegue para o fluxo do aplicativo.
 
 O APK prioriza o MAC físico. Quando o Android oculta o endereço e retorna `02:00:00:00:00:00`, usa o `ANDROID_ID` convertido em 12 caracteres hexadecimais estáveis no mesmo aparelho. A cópia é compacta (`AABBCCDDEEFF`), enquanto as chamadas ao backend usam `AA:BB:CC:DD:EE:FF`.
+
+## Acesso direto por MAC
+
+A build `artifacts/Infinitus-3.1-direto.apk` não chama mais a tela de usuário e senha no fluxo principal. Depois que o backend autoriza o identificador do aparelho e devolve uma lista ativa, a sessão nativa é preparada automaticamente e o aplicativo abre diretamente `AtvActivity`, a área de canais, filmes e séries.
+
+A tela inicial continua exibindo o logo Infinitus, o nome e o identificador de 12 dígitos com o botão `Copiar MAC`. Mensagens antigas como `Dispositivo MAC não ativado. Procure seu revendedor.` pertencem ao formulário nativo que foi retirado do caminho de entrada; a tela de cadastro agora informa o estado da autorização e permite copiar o identificador.

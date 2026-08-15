@@ -137,7 +137,7 @@ public final class BackendGateActivity extends Activity {
                             runOnUiThread(() -> {
                                 if (synced) {
                                     BackendMonitorService.start(this, mac);
-                                    openNativeLogin();
+                                    openNativeContent();
                                 } else {
                                     showFailure("Nenhuma lista ativa foi disponibilizada para este dispositivo.");
                                 }
@@ -157,9 +157,11 @@ public final class BackendGateActivity extends Activity {
         });
     }
 
-    private void openNativeLogin() {
+    private void openNativeContent() {
         Intent intent = new Intent();
-        intent.setClassName(this, "com.legacy.prime.activity.LoginActivity.SignInActivity");
+        intent.setClassName(this, "com.legacy.prime.activity.ui.AtvActivity");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("isFromLogin", true);
         intent.putExtra("backend_mac", mac);
         startActivity(intent);
         finish();

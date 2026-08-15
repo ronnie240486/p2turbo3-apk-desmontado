@@ -1,0 +1,23 @@
+version: 3.0.3
+apkFileName: P2TURBO3.1.apk
+usesFramework:
+  ids:
+  - 1
+sdkInfo:
+  minSdkVersion: 23
+  targetSdkVersion: 36
+versionInfo:
+  versionCode: 11
+  versionName: 3.1
+resourcesInfo:
+  packageId: 127
+doNotCompress:
+- arsc
+- jpg
+- mp3
+- ogg
+- png
+- so
+- webp
+- assets/dexopt/baseline.prof
+- assets/dexopt/baseline.profm

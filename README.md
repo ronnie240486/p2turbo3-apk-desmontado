@@ -1,4 +1,4 @@
-# Imperius 3.1 — APK personalizado a partir do P2Turbo
+# Infinitus 3.1 — APK personalizado a partir do P2TURBO
 
 Este repositório contém a desmontagem técnica do arquivo `P2TURBO3.1.apk`, fornecido para análise. O conteúdo foi organizado em duas saídas complementares: a árvore decodificada pelo Apktool, que preserva recursos, manifesto, bytecode Smali, bibliotecas e assets, e o código-fonte Java aproximado gerado pelo JADX.
 
@@ -26,9 +26,10 @@ Este repositório contém a desmontagem técnica do arquivo `P2TURBO3.1.apk`, fo
 | `apktool/decoded/` | Manifesto, recursos, assets, bibliotecas nativas, Smali e arquivos originais extraídos pelo Apktool. |
 | `jadx/sources/` | Código Java aproximado gerado a partir dos DEX pelo JADX. |
 | `metadata/` | Hashes, saída do `aapt`, logs da desmontagem, validações e assinatura. |
-| `assets/` | Logo principal e ícone Imperius em PNG transparente. |
-| `artifacts/` | APK Imperius alinhado, recompilado e assinado para testes. |
+| `assets/` | Logos e ícones Imperius/Infinitus em PNG transparente. |
+| `artifacts/` | APKs Imperius e Infinitus alinhados, recompilados e assinados para testes. |
 | `tools/` | Scripts de preparação visual e compatibilidade de build. |
+| `infinitus/` | Árvore limpa usada na build atual, com DEX original preservado e notas de reprodução. |
 
 A desmontagem preservou **4.659 arquivos Smali**, **4.080 arquivos Java**, **2.293 recursos**, **4 assets** e **24 bibliotecas nativas** distribuídas entre `arm64-v8a`, `armeabi-v7a`, `x86` e `x86_64`.
 
@@ -49,13 +50,15 @@ A decodificação do APK foi concluída. O JADX produziu a maior parte das fonte
 
 A árvore decodificada foi recompilada com o Apktool 3.0.3 após a normalização de 40 nomes de recursos incompatíveis e a substituição de referências privadas de cores Android por valores locais da paleta Imperius. O APK final foi alinhado com `zipalign` e validado com `apksigner` usando os esquemas v1, v2 e v3.
 
-Os registros completos estão em `metadata/apktool.log`, `metadata/jadx.log`, `metadata/imperius-build-apktool3.log`, `metadata/imperius-build-apktool3-status.txt`, `metadata/imperius-signature.txt` e `metadata/imperius-apk-sha256.txt`.
+Os registros completos estão em `metadata/apktool.log`, `metadata/jadx.log`, `metadata/imperius-build-apktool3.log`, `metadata/imperius-signature.txt`, `metadata/imperius-apk-sha256.txt`, `metadata/infinitus-signature.txt`, `metadata/infinitus-identity-check.txt` e `metadata/infinitus-apk-sha256.txt`.
 
-## Personalização Imperius
+## Personalização Infinitus
 
-O nome exibido no manifesto foi alterado para **Imperius**, mantendo o pacote técnico `com.ar.p2turbo` para evitar alterações desnecessárias nas referências internas. O ícone de lançamento e o recurso interno `drawable/logo.png` receberam o emblema imperial em azul-marinho, dourado metálico e branco. O APK instalável está em `artifacts/Imperius-3.1.apk`.
+A versão atual exibe o nome **Infinitus** e mantém o mesmo emblema imperial, alterando somente o wordmark do logo para `INFINITUS`. O pacote técnico continua sendo `com.ar.p2turbo`, e o APK está em `artifacts/Infinitus-3.1.apk`.
 
-A assinatura incluída é uma assinatura de teste criada durante esta operação. Para distribuição em produção ou atualização sobre uma instalação existente, substitua-a pela chave oficial do titular do aplicativo; APKs assinados com chaves diferentes não são atualizações compatíveis entre si.
+A primeira versão personalizada foi recompilada com o bytecode Smali reassemblado e apresentou crash na abertura. Para a versão Infinitus, a cópia foi reconstruída a partir do APK original com o modo sem decodificação de fontes, preservando o `classes.dex` original byte a byte. A nova validação confirmou que o hash do DEX Infinitus é igual ao DEX do APK fornecido; somente nome, recursos visuais e tabela de recursos foram alterados.
+
+A assinatura incluída é a mesma chave de teste usada na versão Imperius. Para distribuição em produção, substitua-a pela chave oficial do titular do aplicativo. APKs assinados com chaves diferentes não são atualizações compatíveis entre si.
 
 ## Observações de segurança
 

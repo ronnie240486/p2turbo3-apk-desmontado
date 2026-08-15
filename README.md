@@ -27,7 +27,7 @@ Este repositório contém a desmontagem técnica do arquivo `P2TURBO3.1.apk`, fo
 | `jadx/sources/` | Código Java aproximado gerado a partir dos DEX pelo JADX. |
 | `metadata/` | Hashes, saída do `aapt`, logs da desmontagem, validações e assinatura. |
 | `assets/` | Logos e ícones Imperius/Infinitus em PNG transparente. |
-| `artifacts/` | APKs Imperius e Infinitus alinhados, recompilados e assinados para testes. |
+| `artifacts/` | APKs Imperius, Infinitus e Infinitus corrigido, alinhados, recompilados e assinados para testes. |
 | `tools/` | Scripts de preparação visual e compatibilidade de build. |
 | `infinitus/` | Árvore limpa usada na build atual, com DEX original preservado e notas de reprodução. |
 
@@ -50,13 +50,15 @@ A decodificação do APK foi concluída. O JADX produziu a maior parte das fonte
 
 A árvore decodificada foi recompilada com o Apktool 3.0.3 após a normalização de 40 nomes de recursos incompatíveis e a substituição de referências privadas de cores Android por valores locais da paleta Imperius. O APK final foi alinhado com `zipalign` e validado com `apksigner` usando os esquemas v1, v2 e v3.
 
-Os registros completos estão em `metadata/apktool.log`, `metadata/jadx.log`, `metadata/imperius-build-apktool3.log`, `metadata/imperius-signature.txt`, `metadata/imperius-apk-sha256.txt`, `metadata/infinitus-signature.txt`, `metadata/infinitus-identity-check.txt` e `metadata/infinitus-apk-sha256.txt`.
+Os registros completos estão em `metadata/apktool.log`, `metadata/jadx.log`, `metadata/imperius-build-apktool3.log`, `metadata/imperius-signature.txt`, `metadata/imperius-apk-sha256.txt`, `metadata/infinitus-signature.txt`, `metadata/infinitus-identity-check.txt`, `metadata/infinitus-apk-sha256.txt`, `metadata/infinitus-corrigido-signature.txt` e `metadata/infinitus-corrigido-sha256.txt`.
 
 ## Personalização Infinitus
 
 A versão atual exibe o nome **Infinitus** e mantém o mesmo emblema imperial, alterando somente o wordmark do logo para `INFINITUS`. O pacote técnico continua sendo `com.ar.p2turbo`, e o APK está em `artifacts/Infinitus-3.1.apk`.
 
 A primeira versão personalizada foi recompilada com o bytecode Smali reassemblado e apresentou crash na abertura. Para a versão Infinitus, a cópia foi reconstruída a partir do APK original com o modo sem decodificação de fontes, preservando o `classes.dex` original byte a byte. A nova validação confirmou que o hash do DEX Infinitus é igual ao DEX do APK fornecido; somente nome, recursos visuais e tabela de recursos foram alterados.
+
+A versão `artifacts/Infinitus-3.1-corrigido.apk` move o filtro `MAIN/LAUNCHER` para `com.legacy.prime.activity.LoginActivity.SignInActivity`, evitando a atividade `LoginActivity` que permanecia no spinner da splash. O DEX e o `resources.arsc` foram preservados em relação ao Infinitus anterior; a alteração é restrita ao manifesto de entrada.
 
 A assinatura incluída é a mesma chave de teste usada na versão Imperius. Para distribuição em produção, substitua-a pela chave oficial do titular do aplicativo. APKs assinados com chaves diferentes não são atualizações compatíveis entre si.
 

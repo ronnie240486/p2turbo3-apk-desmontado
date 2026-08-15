@@ -87,3 +87,9 @@ O APK prioriza o MAC físico. Quando o Android oculta o endereço e retorna `02:
 A build `artifacts/Infinitus-3.1-direto.apk` não chama mais a tela de usuário e senha no fluxo principal. Depois que o backend autoriza o identificador do aparelho e devolve uma lista ativa, a sessão nativa é preparada automaticamente e o aplicativo abre diretamente `AtvActivity`, a área de canais, filmes e séries.
 
 A tela inicial continua exibindo o logo Infinitus, o nome e o identificador de 12 dígitos com o botão `Copiar MAC`. Mensagens antigas como `Dispositivo MAC não ativado. Procure seu revendedor.` pertencem ao formulário nativo que foi retirado do caminho de entrada; a tela de cadastro agora informa o estado da autorização e permite copiar o identificador.
+
+## Correção de MAC e sincronização da lista
+
+A build `artifacts/Infinitus-3.1-mac-lista.apk` corrige a quebra de linha que aparecia literalmente como `\\n` na tela. O próprio texto do MAC agora é clicável e copia automaticamente os 12 dígitos; o botão `Copiar MAC` continua disponível como alternativa.
+
+Para evitar divergência de cadastro, a integração tenta o MAC normalizado e o MAC compacto. A lista é procurada em `/api/guim.php`, `/api/v5/guim.php` e `/api/v4/guim.php`, aceitando os campos `playlist_url`/`playlist_name` e os aliases `url`/`name`. Quando o painel devolve a URL diretamente em `device/check`, também são aceitos `urlM3u8`, `url_m3u8` e `urlEpg`. Depois da sincronização, as entradas são importadas para o banco `ItemDns` e a sessão nativa é preparada para abrir o conteúdo.

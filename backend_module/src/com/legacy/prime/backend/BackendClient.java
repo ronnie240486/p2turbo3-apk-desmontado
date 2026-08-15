@@ -3,6 +3,7 @@ package com.legacy.prime.backend;
 import android.content.Context;
 import android.provider.Settings;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -121,6 +122,83 @@ public final class BackendClient {
             throw new IllegalArgumentException("Invalid backend path");
         }
         return request("GET", BASE_URL + path, null);
+    }
+
+    public static String deviceCheck(String mac) throws Exception {
+        String normalized = normalizeMac(mac);
+        String compact = compactMac(mac);
+        String first = getMacEndpoint("/api/device/check", normalized);
+        if (isAllowed(first) || compact.equals(normalized)) {
+            return first;
+        }
+        if (!compact.isEmpty() && !compact.equals(normalized)) {
+            try {
+                String second = getMacEndpoint("/api/device/check", compact);
+                if (isAllowed(second) || !hasDeviceDecision(first)) {
+                    return second;
+                }
+            } catch (Exception ignored) {
+                // Keep the normalized response when the compact form is not accepted.
+            }
+        }
+        return first;
+    }
+
+    public static String playlist(String mac) throws Exception {
+        String normalized = normalizeMac(mac);
+        String compact = compactMac(mac);
+        String[] endpoints = {"/api/guim.php", "/api/v5/guim.php", "/api/v4/guim.php"};
+        String fallback = "{\"data\":[]}";
+        for (String endpoint : endpoints) {
+            String[] values = compact.equals(normalized) ? new String[]{normalized} : new String[]{normalized, compact};
+            for (String value : values) {
+                if (value.isEmpty()) {
+                    continue;
+                }
+                try {
+                    String response = getMacEndpoint(endpoint, value);
+                    fallback = response;
+                    if (hasPlaylist(response)) {
+                        return response;
+                    }
+                } catch (Exception ignored) {
+                    // Try the next compatible endpoint or MAC representation.
+                }
+            }
+        }
+        return fallback;
+    }
+
+    private static String getMacEndpoint(String endpoint, String mac) throws Exception {
+        return get(endpoint + "?mac=" + encode(mac));
+    }
+
+    private static boolean isAllowed(String response) {
+        try {
+            JSONObject object = new JSONObject(response == null ? "{}" : response);
+            return object.optBoolean("allowed", false) && object.optBoolean("found", true);
+        } catch (Exception ignored) {
+            return false;
+        }
+    }
+
+    private static boolean hasDeviceDecision(String response) {
+        try {
+            JSONObject object = new JSONObject(response == null ? "{}" : response);
+            return object.has("found") || object.has("allowed") || object.has("mac_registered");
+        } catch (Exception ignored) {
+            return false;
+        }
+    }
+
+    private static boolean hasPlaylist(String response) {
+        try {
+            JSONObject object = new JSONObject(response == null ? "{}" : response);
+            JSONArray data = object.optJSONArray("data");
+            return data != null && data.length() > 0;
+        } catch (Exception ignored) {
+            return false;
+        }
     }
 
     public static String postJson(String path, JSONObject body) throws Exception {

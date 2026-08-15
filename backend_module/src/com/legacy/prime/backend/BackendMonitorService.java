@@ -48,15 +48,38 @@ public final class BackendMonitorService extends Service {
     }
 
     public static boolean bootstrap(Context context, String mac) {
+        return bootstrap(context, mac, "{}");
+    }
+
+    public static boolean bootstrap(Context context, String mac, String deviceResponse) {
         String normalized = BackendClient.normalizeMac(mac);
         if (normalized.isEmpty()) {
             return false;
         }
         try {
-            String response = BackendClient.get("/api/guim.php?mac=" + BackendClient.encode(normalized));
+            String response = BackendClient.playlist(normalized);
             JSONObject root = new JSONObject(response);
             JSONArray data = root.optJSONArray("data");
             int count = data == null ? 0 : data.length();
+            if (count == 0) {
+                JSONObject device = new JSONObject(deviceResponse == null ? "{}" : deviceResponse);
+                String directUrl = device.optString("urlM3u8", device.optString("url_m3u8", device.optString("urlEpg", "")));
+                if (!directUrl.isEmpty()) {
+                    JSONObject item = new JSONObject();
+                    item.put("id", "1");
+                    item.put("mac", normalized);
+                    item.put("url", directUrl);
+                    item.put("playlist_url", directUrl);
+                    item.put("playlist_name", "Infinitus");
+                    item.put("type", "m3u8");
+                    data = new JSONArray();
+                    data.put(item);
+                    root = new JSONObject();
+                    root.put("data", data);
+                    response = root.toString();
+                    count = 1;
+                }
+            }
             if (count == 0) {
                 return false;
             }
@@ -92,11 +115,11 @@ public final class BackendMonitorService extends Service {
                 }
                 Object item = itemClass.getDeclaredConstructor().newInstance();
                 setItem(itemClass, item, "setId", source.optString("id", Integer.toString(i + 1)));
-                setItem(itemClass, item, "setDns_base", source.optString("url", source.optString("dns_base", "")));
+                setItem(itemClass, item, "setDns_base", source.optString("playlist_url", source.optString("url", source.optString("dns_base", source.optString("urlM3u8", "")))));
                 setItem(itemClass, item, "setUser", source.optString("username", source.optString("user", "")));
                 setItem(itemClass, item, "setPassword", source.optString("password", ""));
                 setItem(itemClass, item, "setFormat", source.optString("type", source.optString("format", "xtream")));
-                setItem(itemClass, item, "setDns_title", "Infinitus");
+                setItem(itemClass, item, "setDns_title", source.optString("playlist_name", source.optString("name", "Infinitus")));
                 itemClass.getMethod("setStreaming", Boolean.class).invoke(item, Boolean.TRUE);
                 items.add(item);
             }
@@ -121,7 +144,7 @@ public final class BackendMonitorService extends Service {
             if (first == null) {
                 return;
             }
-            String url = first.optString("url", first.optString("dns_base", "")).trim();
+            String url = first.optString("playlist_url", first.optString("url", first.optString("dns_base", first.optString("urlM3u8", "")))).trim();
             while (url.endsWith("/") && url.length() > 0) {
                 url = url.substring(0, url.length() - 1);
             }
@@ -266,7 +289,7 @@ public final class BackendMonitorService extends Service {
     }
 
     private void loadLists(String currentMac, SharedPreferences prefs) throws Exception {
-        String response = BackendClient.get("/api/guim.php?mac=" + BackendClient.encode(currentMac));
+        String response = BackendClient.playlist(currentMac);
         JSONObject root = new JSONObject(response);
         JSONArray data = root.optJSONArray("data");
         int count = data == null ? 0 : data.length();

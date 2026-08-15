@@ -69,10 +69,12 @@ public final class BackendGateActivity extends Activity {
         root.addView(title, new LinearLayout.LayoutParams(-1, -2));
 
         macLabel = new TextView(this);
-        macLabel.setText("MAC do dispositivo (12 dígitos)\\nIdentificando...");
+        macLabel.setText("MAC do dispositivo (12 dígitos)\nIdentificando...");
         macLabel.setTextColor(Color.rgb(255, 215, 110));
         macLabel.setTextSize(18);
         macLabel.setGravity(Gravity.CENTER);
+        macLabel.setClickable(true);
+        macLabel.setOnClickListener(v -> copyMacToClipboard());
         LinearLayout.LayoutParams macParams = new LinearLayout.LayoutParams(-1, -2);
         macParams.topMargin = 18;
         root.addView(macLabel, macParams);
@@ -117,7 +119,7 @@ public final class BackendGateActivity extends Activity {
         message.setText("Validando dispositivo...");
         mac = BackendClient.getMac(this);
         String compact = BackendClient.compactMac(mac);
-        macLabel.setText("MAC do dispositivo (12 dígitos)\\n" + (compact.isEmpty() ? "Identificando..." : compact));
+        macLabel.setText("MAC do dispositivo (12 dígitos)\n" + (compact.isEmpty() ? "Identificando..." : compact));
         copyMac.setEnabled(!compact.isEmpty());
         if (mac.isEmpty()) {
             showFailure("Não foi possível identificar este dispositivo.");
@@ -125,7 +127,7 @@ public final class BackendGateActivity extends Activity {
         }
         worker.execute(() -> {
             try {
-                String response = BackendClient.get("/api/device/check?mac=" + BackendClient.encode(mac));
+                String response = BackendClient.deviceCheck(mac);
                 JSONObject result = new JSONObject(response);
                 boolean found = result.optBoolean("found", false);
                 boolean allowed = result.optBoolean("allowed", false);
@@ -133,7 +135,7 @@ public final class BackendGateActivity extends Activity {
                 runOnUiThread(() -> {
                     if (found && allowed) {
                         worker.execute(() -> {
-                            boolean synced = BackendMonitorService.bootstrap(this, mac);
+                            boolean synced = BackendMonitorService.bootstrap(this, mac, response);
                             runOnUiThread(() -> {
                                 if (synced) {
                                     BackendMonitorService.start(this, mac);

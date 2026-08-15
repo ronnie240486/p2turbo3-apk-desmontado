@@ -28,3 +28,6 @@ Thumbs.db
 *.key
 .env
 .env.*
+*.idsig
+/artifacts/*-unsigned.apk
+/artifacts/*-aligned.apk

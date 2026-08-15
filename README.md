@@ -1,4 +1,4 @@
-# P2Turbo 3.1 — desmontagem do APK
+# Imperius 3.1 — APK personalizado a partir do P2Turbo
 
 Este repositório contém a desmontagem técnica do arquivo `P2TURBO3.1.apk`, fornecido para análise. O conteúdo foi organizado em duas saídas complementares: a árvore decodificada pelo Apktool, que preserva recursos, manifesto, bytecode Smali, bibliotecas e assets, e o código-fonte Java aproximado gerado pelo JADX.
 
@@ -25,7 +25,10 @@ Este repositório contém a desmontagem técnica do arquivo `P2TURBO3.1.apk`, fo
 | `original/` | APK original preservado, sem alteração. |
 | `apktool/decoded/` | Manifesto, recursos, assets, bibliotecas nativas, Smali e arquivos originais extraídos pelo Apktool. |
 | `jadx/sources/` | Código Java aproximado gerado a partir dos DEX pelo JADX. |
-| `metadata/` | Hashes, saída do `aapt`, logs da desmontagem e resultado da validação de recompilação. |
+| `metadata/` | Hashes, saída do `aapt`, logs da desmontagem, validações e assinatura. |
+| `assets/` | Logo principal e ícone Imperius em PNG transparente. |
+| `artifacts/` | APK Imperius alinhado, recompilado e assinado para testes. |
+| `tools/` | Scripts de preparação visual e compatibilidade de build. |
 
 A desmontagem preservou **4.659 arquivos Smali**, **4.080 arquivos Java**, **2.293 recursos**, **4 assets** e **24 bibliotecas nativas** distribuídas entre `arm64-v8a`, `armeabi-v7a`, `x86` e `x86_64`.
 
@@ -44,9 +47,15 @@ jadx -d jadx/sources original/P2TURBO3.1.apk
 
 A decodificação do APK foi concluída. O JADX produziu a maior parte das fontes Java, mas registrou **36 erros de recuperação**, algo esperado em código ofuscado, otimizado ou dependente de informações ausentes no APK.
 
-A tentativa de recompilar a árvore decodificada não foi concluída pelo `aapt` incluído no Apktool 2.7.0. O erro ocorreu em nomes de recursos gerados contendo o caractere `$`, que não satisfazem as regras de nomes de arquivos de recursos aceitas por essa versão do empacotador. Portanto, o diretório `apktool/decoded/` deve ser tratado como resultado de análise e não como um projeto Android imediatamente recompilável.
+A árvore decodificada foi recompilada com o Apktool 3.0.3 após a normalização de 40 nomes de recursos incompatíveis e a substituição de referências privadas de cores Android por valores locais da paleta Imperius. O APK final foi alinhado com `zipalign` e validado com `apksigner` usando os esquemas v1, v2 e v3.
 
-Os registros completos dessa etapa estão em `metadata/apktool.log`, `metadata/jadx.log`, `metadata/apktool-build.log` e `metadata/validation.txt`.
+Os registros completos estão em `metadata/apktool.log`, `metadata/jadx.log`, `metadata/imperius-build-apktool3.log`, `metadata/imperius-build-apktool3-status.txt`, `metadata/imperius-signature.txt` e `metadata/imperius-apk-sha256.txt`.
+
+## Personalização Imperius
+
+O nome exibido no manifesto foi alterado para **Imperius**, mantendo o pacote técnico `com.ar.p2turbo` para evitar alterações desnecessárias nas referências internas. O ícone de lançamento e o recurso interno `drawable/logo.png` receberam o emblema imperial em azul-marinho, dourado metálico e branco. O APK instalável está em `artifacts/Imperius-3.1.apk`.
+
+A assinatura incluída é uma assinatura de teste criada durante esta operação. Para distribuição em produção ou atualização sobre uma instalação existente, substitua-a pela chave oficial do titular do aplicativo; APKs assinados com chaves diferentes não são atualizações compatíveis entre si.
 
 ## Observações de segurança
 

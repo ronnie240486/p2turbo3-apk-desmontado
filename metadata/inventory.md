@@ -7,7 +7,8 @@
 | Arquivos Smali | 4.659 |
 | Arquivos Java gerados pelo JADX | 4.080 |
 | Recursos em `res/` | 2.293 |
-| Assets | 4 |
+| Assets originais | 4 |
+| Assets Imperius finais | 2 |
 | Bibliotecas nativas | 24 |
 
 ## Arquitetura nativa
@@ -31,4 +32,10 @@ O manifesto declara permissões para acesso à rede, estado da rede, leitura do 
 | `metadata/apktool.log` | Registro da decodificação pelo Apktool. |
 | `metadata/jadx.log` | Registro da geração de fontes pelo JADX. |
 | `metadata/apktool-build.log` | Registro da tentativa de recompilação. |
-| `metadata/validation.txt` | Resultado resumido da validação. |
+| `metadata/validation.txt` | Resultado resumido da validação original. |
+| `metadata/imperius-badging.txt` | Identidade do APK Imperius recompilado. |
+| `metadata/imperius-signature.txt` | Verificação da assinatura v1/v2/v3. |
+| `metadata/imperius-apk-sha256.txt` | Hash do APK Imperius assinado. |
+| `assets/imperius-logo-clean.png` | Logo Imperius transparente com wordmark. |
+| `assets/imperius-icon-clean.png` | Emblema Imperius transparente para ícone. |
+| `artifacts/Imperius-3.1.apk` | APK final recompilado, alinhado e assinado para testes. |

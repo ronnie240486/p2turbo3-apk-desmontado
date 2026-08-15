@@ -28,23 +28,23 @@ doNotCompress:
 - mp3
 isFrameworkApk: false
 packageInfo:
-  forcedPackageId: '127'
+  forcedPackageId: 127
   renameManifestPackage: null
 sdkInfo:
-  minSdkVersion: '23'
-  targetSdkVersion: '36'
+  minSdkVersion: 23
+  targetSdkVersion: 36
 sharedLibrary: false
 sparseResources: false
 unknownFiles:
-  DebugProbesKt.bin: '8'
-  androidsupportmultidexversion.txt: '8'
-  okhttp3/internal/publicsuffix/NOTICE: '8'
-  okhttp3/internal/publicsuffix/publicsuffixes.gz: '8'
+  DebugProbesKt.bin: 8
+  androidsupportmultidexversion.txt: 8
+  okhttp3/internal/publicsuffix/NOTICE: 8
+  okhttp3/internal/publicsuffix/publicsuffixes.gz: 8
 usesFramework:
   ids:
   - 1
   tag: null
 version: 2.7.0-dirty
 versionInfo:
-  versionCode: '11'
+  versionCode: 11
   versionName: '3.1'

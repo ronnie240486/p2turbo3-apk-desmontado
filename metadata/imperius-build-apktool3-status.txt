@@ -1,0 +1,3 @@
+apktool3_build_exit=0
+c9ee996fdc1850445d5835cafa4081370798facfcf7c666042ea31e392901610  /home/ubuntu/p2turbo3.1-rebuilt.apk
+17M	/home/ubuntu/p2turbo3.1-rebuilt.apk

@@ -122,7 +122,7 @@ public final class BackendMonitorService extends Service {
                 }
                 Object item = itemClass.getDeclaredConstructor().newInstance();
                 setItem(itemClass, item, "setId", source.optString("id", Integer.toString(i + 1)));
-                setItem(itemClass, item, "setDns_base", source.optString("playlist_url", source.optString("url", source.optString("dns_base", source.optString("urlM3u8", "")))));
+                setItem(itemClass, item, "setDns_base", nativeDnsBase(source));
                 setItem(itemClass, item, "setUser", source.optString("username", source.optString("user", "")));
                 setItem(itemClass, item, "setPassword", source.optString("password", ""));
                 setItem(itemClass, item, "setFormat", source.optString("type", source.optString("format", "xtream")));
@@ -151,10 +151,7 @@ public final class BackendMonitorService extends Service {
             if (first == null) {
                 return;
             }
-            String url = first.optString("playlist_url", first.optString("url", first.optString("dns_base", first.optString("urlM3u8", "")))).trim();
-            while (url.endsWith("/") && url.length() > 0) {
-                url = url.substring(0, url.length() - 1);
-            }
+            String url = nativeDnsBase(first);
             String username = first.optString("username", first.optString("user", ""));
             String password = first.optString("password", "");
             String id = first.optString("id", "1");
@@ -219,6 +216,22 @@ public final class BackendMonitorService extends Service {
         } catch (Exception ignored) {
             // Session preparation must not crash the gate.
         }
+    }
+
+    private static String nativeDnsBase(JSONObject source) {
+        if (source == null) {
+            return "";
+        }
+        String original = firstNonEmpty(
+                source.optString("playlist_url", ""),
+                source.optString("url", ""),
+                source.optString("dns_base", ""),
+                source.optString("urlM3u8", ""));
+        String type = firstNonEmpty(source.optString("type", ""), source.optString("format", ""));
+        String username = firstNonEmpty(source.optString("username", ""), source.optString("user", ""));
+        String password = source.optString("password", "");
+        boolean xtream = type.toLowerCase().contains("xtream") || type.toLowerCase().contains("m3u_plus") || (!username.isEmpty() && !password.isEmpty());
+        return xtream ? BackendClient.normalizeServerBase(original) : original;
     }
 
     private static String firstNonEmpty(String... values) {

@@ -107,3 +107,9 @@ Na sondagem do painel, o MAC formatado `FD:A0:96:FB:7B:DA` foi autorizado e reto
 A build `artifacts/Infinitus-3.1-categorias-feedback.apk` corrige o callback assíncrono do fragmento de feedback, evitando `requireContext()` quando a tela já foi desanexada. Ela também agenda a filtragem das categorias após a sincronização nativa: Karaokê e categorias bíblicas/religiosas sem conteúdo deixam de aparecer, enquanto itens de desenhos, animes e mangás são apresentados separadamente quando existem na lista.
 
 O módulo continua aceitando `token_api`, `api_token`, `sports_token` e `token` para preencher a preferência do Futebol. O token precisa ser fornecido pelo painel; ele não é um segredo fixo dentro do APK original.
+
+## Build de players e token
+
+A build `artifacts/Infinitus-3.1-player-token.apk` corrige o fechamento ao iniciar filmes, séries ou canais quando `url_completa` não vem no Intent. O player agora usa a sessão nativa, com `dns_base` normalizado para a base do servidor em listas `m3u_plus`, usuário/senha preservados e contêiner `mp4` como padrão quando necessário.
+
+A aba Futebol continua usando o token fornecido pelo painel (`token_api`, `api_token`, `sports_token` ou `token`). O APK original não contém um token esportivo fixo; sem um desses campos no backend, a aba não consegue autenticar por segurança.

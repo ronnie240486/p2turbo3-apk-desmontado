@@ -15,6 +15,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.NetworkInterface;
 import java.net.URL;
+import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
@@ -111,6 +112,37 @@ public final class BackendClient {
     public static String compactMac(String mac) {
         String normalized = normalizeMac(mac);
         return normalized.replace(":", "");
+    }
+
+    /** Returns the provider base used by player_api.php/movie/live/series endpoints. */
+    public static String normalizeServerBase(String value) {
+        if (value == null) {
+            return "";
+        }
+        String raw = value.trim();
+        if (raw.isEmpty()) {
+            return "";
+        }
+        try {
+            URI uri = new URI(raw);
+            if (uri.getScheme() != null && uri.getRawAuthority() != null) {
+                return uri.getScheme() + "://" + uri.getRawAuthority();
+            }
+        } catch (Exception ignored) {
+            // Fall back to conservative string normalization below.
+        }
+        int query = raw.indexOf('?');
+        if (query >= 0) {
+            raw = raw.substring(0, query);
+        }
+        int fragment = raw.indexOf('#');
+        if (fragment >= 0) {
+            raw = raw.substring(0, fragment);
+        }
+        while (raw.endsWith("/") && raw.length() > 0) {
+            raw = raw.substring(0, raw.length() - 1);
+        }
+        return raw;
     }
 
     public static String encode(String value) throws Exception {

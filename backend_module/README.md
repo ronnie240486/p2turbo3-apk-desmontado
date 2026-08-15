@@ -26,3 +26,9 @@ java -cp /home/ubuntu/tools/r8/r8.jar com.android.tools.r8.D8 \
 ## Limites conhecidos
 
 A implementação depende de o MAC real estar disponível na interface de rede do aparelho e de o dispositivo estar cadastrado no painel. A validação desta sessão foi estrutural e contra as rotas públicas usando o MAC de exemplo do guia; não havia um dispositivo Android conectado para executar a UI ou simular um registro autorizado. O comportamento de troca visual remota persiste as URLs recebidas, mas a aplicação visual em todas as telas nativas ainda depende dos pontos de renderização existentes no APK original.
+
+## Tela de identificação
+
+A `BackendGateActivity` exibe o logo Infinitus, o nome do aplicativo, o identificador do dispositivo em 12 dígitos e o botão `Copiar MAC`. O botão copia a forma compacta `AABBCCDDEEFF`, adequada para colar no painel; as chamadas ao backend usam a forma normalizada `AA:BB:CC:DD:EE:FF`.
+
+Quando o Android disponibiliza o MAC físico, ele é usado. Em versões que devolvem o endereço mascarado `02:00:00:00:00:00`, o módulo usa o `ANDROID_ID` convertido em um identificador estável de 12 dígitos, para que o valor permaneça igual no mesmo dispositivo. O usuário deve cadastrar no painel exatamente o valor copiado pela tela.

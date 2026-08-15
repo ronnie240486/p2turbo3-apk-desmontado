@@ -1,15 +1,19 @@
 package com.legacy.prime.backend;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -21,8 +25,10 @@ public final class BackendGateActivity extends Activity {
     private final ExecutorService worker = Executors.newSingleThreadExecutor();
     private LinearLayout root;
     private TextView title;
+    private TextView macLabel;
     private TextView message;
     private ProgressBar progress;
+    private Button copyMac;
     private Button retry;
     private String mac = "";
 
@@ -41,12 +47,43 @@ public final class BackendGateActivity extends Activity {
         root.setPadding(56, 40, 56, 40);
         root.setBackgroundColor(Color.rgb(5, 18, 32));
 
+        ImageView logo = new ImageView(this);
+        int logoId = getResources().getIdentifier("logo", "drawable", getPackageName());
+        if (logoId == 0) {
+            logoId = getResources().getIdentifier("ic_launcher", "mipmap", getPackageName());
+        }
+        if (logoId != 0) {
+            logo.setImageResource(logoId);
+        }
+        logo.setAdjustViewBounds(true);
+        logo.setContentDescription("Logo Infinitus");
+        LinearLayout.LayoutParams logoParams = new LinearLayout.LayoutParams(-1, 180);
+        logoParams.bottomMargin = 18;
+        root.addView(logo, logoParams);
+
         title = new TextView(this);
         title.setText("Infinitus");
         title.setTextColor(Color.WHITE);
         title.setTextSize(28);
         title.setGravity(Gravity.CENTER);
         root.addView(title, new LinearLayout.LayoutParams(-1, -2));
+
+        macLabel = new TextView(this);
+        macLabel.setText("MAC do dispositivo (12 dígitos)\\nIdentificando...");
+        macLabel.setTextColor(Color.rgb(255, 215, 110));
+        macLabel.setTextSize(18);
+        macLabel.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams macParams = new LinearLayout.LayoutParams(-1, -2);
+        macParams.topMargin = 18;
+        root.addView(macLabel, macParams);
+
+        copyMac = new Button(this);
+        copyMac.setText("Copiar MAC");
+        copyMac.setEnabled(false);
+        copyMac.setOnClickListener(v -> copyMacToClipboard());
+        LinearLayout.LayoutParams copyParams = new LinearLayout.LayoutParams(-2, -2);
+        copyParams.topMargin = 8;
+        root.addView(copyMac, copyParams);
 
         message = new TextView(this);
         message.setText("Validando dispositivo...");
@@ -79,6 +116,9 @@ public final class BackendGateActivity extends Activity {
         progress.setVisibility(View.VISIBLE);
         message.setText("Validando dispositivo...");
         mac = BackendClient.getMac(this);
+        String compact = BackendClient.compactMac(mac);
+        macLabel.setText("MAC do dispositivo (12 dígitos)\\n" + (compact.isEmpty() ? "Identificando..." : compact));
+        copyMac.setEnabled(!compact.isEmpty());
         if (mac.isEmpty()) {
             showFailure("Não foi possível identificar este dispositivo.");
             return;
@@ -123,6 +163,18 @@ public final class BackendGateActivity extends Activity {
         intent.putExtra("backend_mac", mac);
         startActivity(intent);
         finish();
+    }
+
+    private void copyMacToClipboard() {
+        String compact = BackendClient.compactMac(mac);
+        if (compact.isEmpty()) {
+            return;
+        }
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        if (clipboard != null) {
+            clipboard.setPrimaryClip(ClipData.newPlainText("MAC do dispositivo", compact));
+            Toast.makeText(this, "MAC copiado", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void showFailure(String text) {

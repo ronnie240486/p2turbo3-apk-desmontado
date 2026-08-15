@@ -69,7 +69,9 @@ public final class BackendClient {
                         mac.append(String.format(Locale.US, "%02X", part & 0xFF));
                     }
                     String normalized = normalizeMac(mac.toString());
-                    if (!normalized.isEmpty() && !"00:00:00:00:00:00".equals(normalized)) {
+                    if (!normalized.isEmpty()
+                            && !"00:00:00:00:00:00".equals(normalized)
+                            && !"02:00:00:00:00:00".equals(normalized)) {
                         return normalized;
                     }
                 }
@@ -77,7 +79,37 @@ public final class BackendClient {
         } catch (Exception ignored) {
             // Do not expose network or device details in logs.
         }
-        return "";
+        String stable = stableDeviceMac(context);
+        return stable;
+    }
+
+    /** Android 10+ may hide the physical Wi-Fi MAC; keep a stable 12-digit panel identifier. */
+    private static String stableDeviceMac(Context context) {
+        try {
+            String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+            if (androidId == null) {
+                return "";
+            }
+            String compact = androidId.toUpperCase(Locale.US).replaceAll("[^0-9A-F]", "");
+            if (compact.length() < 12) {
+                StringBuilder padded = new StringBuilder(compact);
+                while (padded.length() < 12) {
+                    padded.append('0');
+                }
+                compact = padded.toString();
+            }
+            if (compact.length() > 12) {
+                compact = compact.substring(0, 12);
+            }
+            return normalizeMac(compact);
+        } catch (Exception ignored) {
+            return "";
+        }
+    }
+
+    public static String compactMac(String mac) {
+        String normalized = normalizeMac(mac);
+        return normalized.replace(":", "");
     }
 
     public static String encode(String value) throws Exception {

@@ -144,6 +144,29 @@ public final class BackendClient {
         return first;
     }
 
+    public static String visualConfig(String mac) throws Exception {
+        String normalized = normalizeMac(mac);
+        String compact = compactMac(mac);
+        String[] endpoints = {"/api/v5/ultra-config", "/api/v4/ultra-config", "/api/ultra-config"};
+        String[] values = compact.equals(normalized) ? new String[]{normalized} : new String[]{normalized, compact};
+        for (String endpoint : endpoints) {
+            for (String value : values) {
+                if (value.isEmpty()) {
+                    continue;
+                }
+                try {
+                    String response = getMacEndpoint(endpoint, value);
+                    if (response != null && !response.trim().isEmpty() && !"{}".equals(response.trim())) {
+                        return response;
+                    }
+                } catch (Exception ignored) {
+                    // Try the next compatible endpoint or MAC representation.
+                }
+            }
+        }
+        return "{}";
+    }
+
     public static String playlist(String mac) throws Exception {
         String normalized = normalizeMac(mac);
         String compact = compactMac(mac);

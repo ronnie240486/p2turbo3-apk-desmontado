@@ -161,7 +161,7 @@ public final class BackendGateActivity extends Activity {
 
     private void openNativeContent() {
         Intent intent = new Intent();
-        intent.setClassName(this, "com.legacy.prime.activity.ui.AtvActivity");
+        intent.setClassName(this, "com.legacy.prime.activity.LoginActivity.SplashInicio");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("isFromLogin", true);
         intent.putExtra("backend_mac", mac);

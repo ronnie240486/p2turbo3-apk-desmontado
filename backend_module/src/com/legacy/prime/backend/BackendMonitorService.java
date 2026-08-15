@@ -89,7 +89,13 @@ public final class BackendMonitorService extends Service {
                     .putString("backend_lists_json", response)
                     .apply();
             boolean imported = importListsIntoNativeDatabase(context, response);
-            prepareNativeSession(context, root);
+            String configResponse = "{}";
+            try {
+                configResponse = BackendClient.visualConfig(normalized);
+            } catch (Exception ignored) {
+                // Visual configuration and token aliases are optional for the main playlist.
+            }
+            prepareNativeSession(context, root, deviceResponse, configResponse);
             return imported;
         } catch (Exception ignored) {
             return false;
@@ -134,7 +140,7 @@ public final class BackendMonitorService extends Service {
         }
     }
 
-    private static void prepareNativeSession(Context context, JSONObject root) {
+    private static void prepareNativeSession(Context context, JSONObject root, String deviceResponse, String configResponse) {
         try {
             JSONArray data = root.optJSONArray("data");
             if (data == null || data.length() == 0) {
@@ -152,6 +158,26 @@ public final class BackendMonitorService extends Service {
             String password = first.optString("password", "");
             String id = first.optString("id", "1");
             String format = first.optString("type", first.optString("format", "xtream"));
+            JSONObject device = new JSONObject(deviceResponse == null ? "{}" : deviceResponse);
+            JSONObject config = new JSONObject(configResponse == null ? "{}" : configResponse);
+            String token = firstNonEmpty(
+                    first.optString("token_api", ""),
+                    first.optString("api_token", ""),
+                    root.optString("token_api", ""),
+                    root.optString("token", ""),
+                    device.optString("token_api", ""),
+                    device.optString("token", ""),
+                    config.optString("token_api", ""),
+                    config.optString("api_token", ""),
+                    config.optString("sports_token", ""),
+                    config.optString("token", ""));
+            if (token.regionMatches(true, 0, "Bearer ", 0, 7)) {
+                token = token.substring(7).trim();
+            }
+            String expiration = firstNonEmpty(
+                    device.optString("dataExpiracao", ""),
+                    device.optString("expiration", ""),
+                    first.optString("exp_date", ""));
 
             SharedPreferences user = context.getSharedPreferences("UserSetting", MODE_PRIVATE);
             user.edit()
@@ -164,6 +190,7 @@ public final class BackendMonitorService extends Service {
                     .putString("id_lista", id)
                     .putString("format", format)
                     .putBoolean("streaming", true)
+                    .putString("ExpiredDateServe", expiration.isEmpty() ? "ILIMITADO" : expiration)
                     .apply();
 
             SharedPreferences session = context.getSharedPreferences("streambox_sph", MODE_PRIVATE);
@@ -177,10 +204,32 @@ public final class BackendMonitorService extends Service {
                     .putInt("live_format", 1)
                     .putString("status", "1")
                     .putInt("auth", 1)
+                    .putString("url_data", first.optString("url_data", url))
+                    .putString("server_api_url", config.optString("server_api_url", ""))
                     .apply();
+
+            if (!token.isEmpty()) {
+                context.getSharedPreferences("ApiEsporteBrPrefs", MODE_PRIVATE)
+                        .edit()
+                        .putString("token", token)
+                        .apply();
+                user.edit().putString("token", token).apply();
+            }
         } catch (Exception ignored) {
             // Session preparation must not crash the gate.
         }
+    }
+
+    private static String firstNonEmpty(String... values) {
+        if (values == null) {
+            return "";
+        }
+        for (String value : values) {
+            if (value != null && !value.trim().isEmpty() && !"null".equalsIgnoreCase(value.trim())) {
+                return value.trim();
+            }
+        }
+        return "";
     }
 
     private static void setItem(Class<?> itemClass, Object item, String method, String value) throws Exception {

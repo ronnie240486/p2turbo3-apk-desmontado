@@ -93,3 +93,11 @@ A tela inicial continua exibindo o logo Infinitus, o nome e o identificador de 1
 A build `artifacts/Infinitus-3.1-mac-lista.apk` corrige a quebra de linha que aparecia literalmente como `\\n` na tela. O próprio texto do MAC agora é clicável e copia automaticamente os 12 dígitos; o botão `Copiar MAC` continua disponível como alternativa.
 
 Para evitar divergência de cadastro, a integração tenta o MAC normalizado e o MAC compacto. A lista é procurada em `/api/guim.php`, `/api/v5/guim.php` e `/api/v4/guim.php`, aceitando os campos `playlist_url`/`playlist_name` e os aliases `url`/`name`. Quando o painel devolve a URL diretamente em `device/check`, também são aceitos `urlM3u8`, `url_m3u8` e `urlEpg`. Depois da sincronização, as entradas são importadas para o banco `ItemDns` e a sessão nativa é preparada para abrir o conteúdo.
+
+## Correção de conteúdo vazio e token de Futebol
+
+A build `artifacts/Infinitus-3.1-token-splash.apk` restaura a sequência original de inicialização: após a autorização do dispositivo e a importação da lista, o aplicativo abre `SplashInicio`, que executa o preenchimento e a validação dos bancos nativos de canais, filmes, séries e esportes antes da tela principal.
+
+O token esportivo passou a ser procurado nos campos `token_api`, `api_token`, `sports_token` e `token` das respostas do painel e, quando encontrado, é salvo em `ApiEsporteBrPrefs.token`, que é a preferência lida pela aba Futebol. O APK original não contém um token fixo; o fluxo original recebia esse valor do backend durante a autenticação.
+
+Na sondagem do painel, o MAC formatado `FD:A0:96:FB:7B:DA` foi autorizado e retornou uma lista `m3u_plus`; o MAC compacto `FDA096FB7BDA` não foi cadastrado. Portanto, o valor formatado precisa ser mantido como referência no painel quando o backend exigir essa forma.

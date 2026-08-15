@@ -32,3 +32,9 @@ A implementação depende de o MAC real estar disponível na interface de rede d
 A `BackendGateActivity` exibe o logo Infinitus, o nome do aplicativo, o identificador do dispositivo em 12 dígitos e o botão `Copiar MAC`. O botão copia a forma compacta `AABBCCDDEEFF`, adequada para colar no painel; as chamadas ao backend usam a forma normalizada `AA:BB:CC:DD:EE:FF`.
 
 Quando o Android disponibiliza o MAC físico, ele é usado. Em versões que devolvem o endereço mascarado `02:00:00:00:00:00`, o módulo usa o `ANDROID_ID` convertido em um identificador estável de 12 dígitos, para que o valor permaneça igual no mesmo dispositivo. O usuário deve cadastrar no painel exatamente o valor copiado pela tela.
+
+## Conteúdo e Futebol
+
+A entrada autorizada não abre mais `AtvActivity` diretamente. Ela prepara `UserSetting` e `streambox_sph`, importa a lista do painel e inicia `com.legacy.prime.activity.LoginActivity.SplashInicio`, preservando a sequência original de carregamento dos bancos de canais, filmes, séries e esportes.
+
+O serviço reconhece `token_api`, `api_token`, `sports_token` e `token` nas respostas do backend e grava o valor em `ApiEsporteBrPrefs.token`, preferência usada pela aba Futebol. O painel deve fornecer esse token para que `ActivityEsporte` consiga chamar a rota `jogosV2?incluirAntigos=false` com autorização Bearer.

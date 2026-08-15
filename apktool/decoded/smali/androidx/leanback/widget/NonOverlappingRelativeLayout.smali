@@ -1,0 +1,30 @@
+.class Landroidx/leanback/widget/NonOverlappingRelativeLayout;
+.super Landroid/widget/RelativeLayout;
+.source "r8-map-id-d98a0b67e5c72a2b4911c858f975447f53681d48dbca85ac5f9796dbc206c367"
+
+
+# direct methods
+.method public constructor <init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
+    .locals 1
+
+    .line 1
+    const/4 v0, 0x0
+
+    .line 2
+    invoke-direct {p0, p1, p2, v0}, Landroid/widget/RelativeLayout;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;I)V
+
+    .line 5
+    return-void
+.end method
+
+
+# virtual methods
+.method public final hasOverlappingRendering()Z
+    .locals 1
+
+    .line 1
+    const/4 v0, 0x0
+
+    .line 2
+    return v0
+.end method

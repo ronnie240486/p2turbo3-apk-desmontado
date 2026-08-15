@@ -1,0 +1,16 @@
+package R2;
+
+/* JADX INFO: compiled from: r8-map-id-d98a0b67e5c72a2b4911c858f975447f53681d48dbca85ac5f9796dbc206c367 */
+/* JADX INFO: loaded from: classes.dex */
+public final class a {
+
+    /* JADX INFO: renamed from: a, reason: collision with root package name */
+    public Q1.b f3376a;
+
+    /* JADX INFO: renamed from: b, reason: collision with root package name */
+    public final /* synthetic */ c f3377b;
+
+    public a(c cVar) {
+        this.f3377b = cVar;
+    }
+}

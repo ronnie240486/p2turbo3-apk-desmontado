@@ -1,0 +1,56 @@
+.class public final synthetic Lcom/diegodev/apidesportes/jogos/response/b;
+.super Ljava/lang/Object;
+.source "r8-map-id-d98a0b67e5c72a2b4911c858f975447f53681d48dbca85ac5f9796dbc206c367"
+
+# interfaces
+.implements Ljava/lang/Runnable;
+
+
+# instance fields
+.field public final synthetic p:Lcom/diegodev/apidesportes/jogos/response/ApiMoviesCaller$ApiMoviesCallback;
+
+.field public final synthetic q:I
+
+.field public final synthetic r:I
+
+
+# direct methods
+.method public synthetic constructor <init>(Lcom/diegodev/apidesportes/jogos/response/ApiMoviesCaller$ApiMoviesCallback;II)V
+    .locals 0
+
+    .line 1
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 4
+    iput-object p1, p0, Lcom/diegodev/apidesportes/jogos/response/b;->p:Lcom/diegodev/apidesportes/jogos/response/ApiMoviesCaller$ApiMoviesCallback;
+
+    .line 6
+    iput p2, p0, Lcom/diegodev/apidesportes/jogos/response/b;->q:I
+
+    .line 8
+    iput p3, p0, Lcom/diegodev/apidesportes/jogos/response/b;->r:I
+
+    .line 10
+    return-void
+.end method
+
+
+# virtual methods
+.method public final run()V
+    .locals 3
+
+    .line 1
+    iget v0, p0, Lcom/diegodev/apidesportes/jogos/response/b;->q:I
+
+    .line 3
+    iget v1, p0, Lcom/diegodev/apidesportes/jogos/response/b;->r:I
+
+    .line 5
+    iget-object v2, p0, Lcom/diegodev/apidesportes/jogos/response/b;->p:Lcom/diegodev/apidesportes/jogos/response/ApiMoviesCaller$ApiMoviesCallback;
+
+    .line 7
+    invoke-static {v2, v0, v1}, Lcom/diegodev/apidesportes/jogos/response/ApiMoviesCaller$1;->b(Lcom/diegodev/apidesportes/jogos/response/ApiMoviesCaller$ApiMoviesCallback;II)V
+
+    .line 10
+    return-void
+.end method

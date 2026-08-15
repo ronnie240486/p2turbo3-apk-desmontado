@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="horizontal" android:id="@id/container" android:background="@drawable/bg_dark" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.legacy.prime.Bacground.BackgroundView android:id="@id/backgroundImageView" android:layout_width="fill_parent" android:layout_height="fill_parent" android:scaleType="fitXY" />
+    <TextView android:textSize="@dimen/_7sdp" android:textStyle="bold" android:textColor="#b7ffffff" android:id="@id/mac_id" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="@dimen/_10sdp" android:layout_alignParentBottom="true" android:layout_alignParentStart="true" />
+    <RelativeLayout android:layout_gravity="center" android:id="@id/blurView" android:background="@drawable/bg_card_sub" android:layout_width="@dimen/_270sdp" android:layout_height="@dimen/_160sdp" android:layout_centerInParent="true" android:clipToOutline="true">
+        <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="@dimen/_10sdp" android:layout_centerInParent="true">
+            <LinearLayout android:orientation="vertical" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0">
+                <com.legacy.prime.Bacground.LogoView android:layout_gravity="center" android:layout_width="@dimen/_95sdp" android:layout_height="@dimen/_95sdp" android:scaleType="fitXY" android:adjustViewBounds="true" android:contentDescription="@string/todo" />
+            </LinearLayout>
+            <LinearLayout android:gravity="center" android:layout_gravity="center" android:orientation="vertical" android:id="@id/loginformulario" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" android:layout_marginStart="@dimen/_10sdp">
+                <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="@dimen/_18sdp" android:layout_marginTop="@dimen/_5sdp">
+                    <LinearLayout android:gravity="center" android:layout_gravity="center" android:orientation="horizontal" android:id="@id/btn_user" android:background="@drawable/focused_item_live1" android:padding="@dimen/_1sdp" android:focusable="false" android:focusableInTouchMode="false" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+                        <ImageView android:background="@drawable/account_perfil" android:layout_width="@dimen/_11sdp" android:layout_height="@dimen/_11sdp" android:backgroundTint="#cbffffff" />
+                        <TextView android:textSize="@dimen/_6sdp" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ACESSE COM SEUS DADOS" android:layout_marginStart="@dimen/_5sdp" />
+                    </LinearLayout>
+                    <LinearLayout android:gravity="center" android:layout_gravity="center" android:id="@id/btn_mac" android:background="@drawable/focused_item_live1" android:padding="@dimen/_1sdp" android:focusable="false" android:focusableInTouchMode="false" android:visibility="gone" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+                        <ImageView android:background="@drawable/mac" android:layout_width="@dimen/_11sdp" android:layout_height="@dimen/_11sdp" android:backgroundTint="#cbffffff" />
+                        <TextView android:textSize="@dimen/_6sdp" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="REALIZE O SEU LOGIN" android:layout_marginStart="@dimen/_5sdp" />
+                    </LinearLayout>
+                </LinearLayout>
+                <View android:background="@drawable/bg_view" android:layout_width="fill_parent" android:layout_height="1.0dip" android:layout_marginTop="3.0dip" android:layout_marginStart="@dimen/_5sdp" android:layout_marginEnd="@dimen/_5sdp" />
+                <LinearLayout android:gravity="center" android:orientation="vertical" android:id="@id/linear_mac" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="@dimen/_80sdp" android:paddingStart="@dimen/_5sdp" android:paddingEnd="@dimen/_5sdp">
+                    <TextView android:textSize="@dimen/_7sdp" android:textColor="#ffffc107" android:gravity="center" android:layout_gravity="center" android:id="@id/tv_subtitle2" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/_5sdp" android:text="Seu acesso ainda não foi liberado!" />
+                    <TextView android:textSize="@dimen/_5sdp" android:textColor="#ffd3d3d3" android:gravity="center" android:id="@id/tv_ativacao_info" android:padding="@dimen/_2sdp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/_5sdp" android:text="Vincule seu endereço MAC com seu revendedor autorizado para liberar o acesso completo ao app." android:lineSpacingExtra="@dimen/_3sdp" />
+                    <TextView android:textSize="@dimen/_9sdp" android:textColor="#ffffc107" android:gravity="center" android:layout_gravity="center" android:id="@id/idmac" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/_5sdp" />
+                </LinearLayout>
+                <LinearLayout android:orientation="vertical" android:id="@id/linear_user" android:layout_width="fill_parent" android:layout_height="@dimen/_80sdp" android:paddingStart="@dimen/_5sdp" android:paddingEnd="@dimen/_5sdp">
+                    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/_8sdp">
+                        <TextView android:textSize="@dimen/_6sdp" android:textColor="#daffffff" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/_5sdp" android:text="Usuário" />
+                        <EditText android:textSize="@dimen/_7sdp" android:textColor="@color/white" android:textColorHint="#d7eaeaea" android:gravity="center" android:layout_gravity="center" android:id="@id/et_user_name" android:background="@drawable/rounded_edittext_bg" android:nextFocusUp="@id/btn_user" android:nextFocusDown="@id/et_login_password" android:layout_width="fill_parent" android:layout_height="@dimen/_20sdp" android:layout_marginTop="@dimen/_2sdp" android:singleLine="true" android:selectAllOnFocus="true" android:inputType="textEmailAddress" android:imeOptions="actionNext" android:drawableStart="@drawable/account_perfil" android:paddingStart="@dimen/_5sdp" />
+                    </LinearLayout>
+                    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                        <TextView android:textSize="@dimen/_6sdp" android:textColor="#daffffff" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/_3sdp" android:text="Senha" android:layout_centerInParent="true" />
+                        <EditText android:textSize="@dimen/_7sdp" android:textColor="@color/white" android:textColorHint="#d7eaeaea" android:gravity="center" android:id="@id/et_login_password" android:background="@drawable/rounded_edittext_bg" android:layout_width="fill_parent" android:layout_height="@dimen/_20sdp" android:layout_marginTop="@dimen/_2sdp" android:singleLine="true" android:selectAllOnFocus="true" android:imeOptions="actionDone" android:drawableStart="@drawable/ic_lock" android:paddingStart="@dimen/_5sdp" />
+                    </LinearLayout>
+                </LinearLayout>
+                <RelativeLayout android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="@dimen/_20sdp" android:layout_marginTop="@dimen/_6sdp" android:paddingStart="@dimen/_5sdp" android:paddingEnd="@dimen/_5sdp">
+                    <ImageButton android:id="@id/ll_btn_add" android:background="@drawable/imagebuttonroud" android:focusable="true" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+                    <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true">
+                        <TextView android:textSize="@dimen/_8sdp" android:textStyle="bold" android:textColor="#b7ffffff" android:id="@id/txt_entra" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Entrar" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+    <com.airbnb.lottie.LottieAnimationView android:layout_gravity="center" android:id="@id/lottieLoader" android:visibility="gone" android:layout_width="@dimen/_30sdp" android:layout_height="@dimen/_30sdp" android:layout_marginTop="@dimen/_10sdp" android:layout_marginBottom="@dimen/_20sdp" android:layout_alignParentBottom="true" android:layout_alignParentStart="true" android:layout_alignParentEnd="true" app:lottie_autoPlay="true" app:lottie_loop="true" app:lottie_rawRes="@raw/myload" />
+</RelativeLayout>

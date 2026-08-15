@@ -1,0 +1,492 @@
+.class public Landroidx/leanback/widget/NonOverlappingLinearLayout;
+.super Landroid/widget/LinearLayout;
+.source "r8-map-id-d98a0b67e5c72a2b4911c858f975447f53681d48dbca85ac5f9796dbc206c367"
+
+
+# instance fields
+.field public p:Z
+
+.field public q:Z
+
+.field public final r:Ljava/util/ArrayList;
+
+
+# direct methods
+.method public constructor <init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
+    .locals 1
+
+    .line 1
+    const/4 v0, 0x0
+
+    .line 2
+    invoke-direct {p0, p1, p2, v0}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;I)V
+
+    .line 5
+    iput-boolean v0, p0, Landroidx/leanback/widget/NonOverlappingLinearLayout;->p:Z
+
+    .line 7
+    new-instance p1, Ljava/util/ArrayList;
+
+    .line 9
+    invoke-direct {p1}, Ljava/util/ArrayList;-><init>()V
+
+    .line 12
+    iput-object p1, p0, Landroidx/leanback/widget/NonOverlappingLinearLayout;->r:Ljava/util/ArrayList;
+
+    .line 14
+    return-void
+.end method
+
+
+# virtual methods
+.method public final focusableViewAvailable(Landroid/view/View;)V
+    .locals 3
+
+    .line 1
+    iget-boolean v0, p0, Landroidx/leanback/widget/NonOverlappingLinearLayout;->q:Z
+
+    .line 3
+    if-eqz v0, :cond_3
+
+    .line 5
+    move-object v0, p1
+
+    .line 6
+    :goto_0
+    const/4 v1, -0x1
+
+    .line 7
+    if-eq v0, p0, :cond_1
+
+    .line 9
+    if-eqz v0, :cond_1
+
+    .line 11
+    invoke-virtual {v0}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
+
+    .line 14
+    move-result-object v2
+
+    .line 15
+    if-ne v2, p0, :cond_0
+
+    .line 17
+    invoke-virtual {p0, v0}, Landroid/view/ViewGroup;->indexOfChild(Landroid/view/View;)I
+
+    .line 20
+    move-result v0
+
+    .line 21
+    goto :goto_1
+
+    .line 22
+    :cond_0
+    invoke-virtual {v0}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
+
+    .line 25
+    move-result-object v0
+
+    .line 26
+    check-cast v0, Landroid/view/View;
+
+    .line 28
+    goto :goto_0
+
+    .line 29
+    :cond_1
+    move v0, v1
+
+    .line 30
+    :goto_1
+    if-eq v0, v1, :cond_2
+
+    .line 32
+    iget-object v1, p0, Landroidx/leanback/widget/NonOverlappingLinearLayout;->r:Ljava/util/ArrayList;
+
+    .line 34
+    invoke-virtual {v1, v0}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    .line 37
+    move-result-object v0
+
+    .line 38
+    check-cast v0, Ljava/util/ArrayList;
+
+    .line 40
+    invoke-virtual {v0, p1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
+    .line 43
+    :cond_2
+    return-void
+
+    .line 44
+    :cond_3
+    invoke-super {p0, p1}, Landroid/widget/LinearLayout;->focusableViewAvailable(Landroid/view/View;)V
+
+    .line 47
+    return-void
+.end method
+
+.method public final hasOverlappingRendering()Z
+    .locals 1
+
+    .line 1
+    const/4 v0, 0x0
+
+    .line 2
+    return v0
+.end method
+
+.method public final onLayout(ZIIII)V
+    .locals 9
+
+    .line 1
+    iget-object v1, p0, Landroidx/leanback/widget/NonOverlappingLinearLayout;->r:Ljava/util/ArrayList;
+
+    .line 3
+    const/4 v2, 0x0
+
+    .line 4
+    :try_start_0
+    iget-boolean v0, p0, Landroidx/leanback/widget/NonOverlappingLinearLayout;->p:Z
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_2
+
+    .line 6
+    const/4 v3, 0x1
+
+    .line 7
+    if-eqz v0, :cond_0
+
+    .line 9
+    :try_start_1
+    invoke-virtual {p0}, Landroid/widget/LinearLayout;->getOrientation()I
+
+    .line 12
+    move-result v0
+
+    .line 13
+    if-nez v0, :cond_0
+
+    .line 15
+    invoke-virtual {p0}, Landroid/view/View;->getLayoutDirection()I
+
+    .line 18
+    move-result v0
+    :try_end_1
+    .catchall {:try_start_1 .. :try_end_1} :catchall_0
+
+    .line 19
+    if-ne v0, v3, :cond_0
+
+    .line 21
+    move v0, v3
+
+    .line 22
+    goto :goto_0
+
+    .line 23
+    :catchall_0
+    move-exception v0
+
+    .line 24
+    move-object p1, v0
+
+    .line 25
+    move-object v3, p0
+
+    .line 26
+    goto/16 :goto_7
+
+    .line 28
+    :cond_0
+    move v0, v2
+
+    .line 29
+    :goto_0
+    :try_start_2
+    iput-boolean v0, p0, Landroidx/leanback/widget/NonOverlappingLinearLayout;->q:Z
+    :try_end_2
+    .catchall {:try_start_2 .. :try_end_2} :catchall_2
+
+    .line 31
+    if-eqz v0, :cond_2
+
+    .line 33
+    :goto_1
+    :try_start_3
+    invoke-virtual {v1}, Ljava/util/ArrayList;->size()I
+
+    .line 36
+    move-result v0
+
+    .line 37
+    invoke-virtual {p0}, Landroid/view/ViewGroup;->getChildCount()I
+
+    .line 40
+    move-result v4
+
+    .line 41
+    if-le v0, v4, :cond_1
+
+    .line 43
+    invoke-virtual {v1}, Ljava/util/ArrayList;->size()I
+
+    .line 46
+    move-result v0
+
+    .line 47
+    sub-int/2addr v0, v3
+
+    .line 48
+    invoke-virtual {v1, v0}, Ljava/util/ArrayList;->remove(I)Ljava/lang/Object;
+
+    .line 51
+    goto :goto_1
+
+    .line 52
+    :cond_1
+    :goto_2
+    invoke-virtual {v1}, Ljava/util/ArrayList;->size()I
+
+    .line 55
+    move-result v0
+
+    .line 56
+    invoke-virtual {p0}, Landroid/view/ViewGroup;->getChildCount()I
+
+    .line 59
+    move-result v3
+
+    .line 60
+    if-ge v0, v3, :cond_2
+
+    .line 62
+    new-instance v0, Ljava/util/ArrayList;
+
+    .line 64
+    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
+
+    .line 67
+    invoke-virtual {v1, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+    :try_end_3
+    .catchall {:try_start_3 .. :try_end_3} :catchall_0
+
+    .line 70
+    goto :goto_2
+
+    .line 71
+    :cond_2
+    move-object v3, p0
+
+    .line 72
+    move v4, p1
+
+    .line 73
+    move v5, p2
+
+    .line 74
+    move v6, p3
+
+    .line 75
+    move v7, p4
+
+    .line 76
+    move v8, p5
+
+    .line 77
+    :try_start_4
+    invoke-super/range {v3 .. v8}, Landroid/widget/LinearLayout;->onLayout(ZIIII)V
+
+    .line 80
+    iget-boolean p1, v3, Landroidx/leanback/widget/NonOverlappingLinearLayout;->q:Z
+
+    .line 82
+    if-eqz p1, :cond_4
+
+    .line 84
+    move p1, v2
+
+    .line 85
+    :goto_3
+    invoke-virtual {v1}, Ljava/util/ArrayList;->size()I
+
+    .line 88
+    move-result p2
+
+    .line 89
+    if-ge p1, p2, :cond_4
+
+    .line 91
+    move p2, v2
+
+    .line 92
+    :goto_4
+    invoke-virtual {v1, p1}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    .line 95
+    move-result-object p3
+
+    .line 96
+    check-cast p3, Ljava/util/ArrayList;
+
+    .line 98
+    invoke-virtual {p3}, Ljava/util/ArrayList;->size()I
+
+    .line 101
+    move-result p3
+
+    .line 102
+    if-ge p2, p3, :cond_3
+
+    .line 104
+    invoke-virtual {v1, p1}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    .line 107
+    move-result-object p3
+
+    .line 108
+    check-cast p3, Ljava/util/ArrayList;
+
+    .line 110
+    invoke-virtual {p3, p2}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    .line 113
+    move-result-object p3
+
+    .line 114
+    check-cast p3, Landroid/view/View;
+
+    .line 116
+    invoke-super {p0, p3}, Landroid/widget/LinearLayout;->focusableViewAvailable(Landroid/view/View;)V
+    :try_end_4
+    .catchall {:try_start_4 .. :try_end_4} :catchall_1
+
+    .line 119
+    add-int/lit8 p2, p2, 0x1
+
+    .line 121
+    goto :goto_4
+
+    .line 122
+    :catchall_1
+    move-exception v0
+
+    .line 123
+    :goto_5
+    move-object p1, v0
+
+    .line 124
+    goto :goto_7
+
+    .line 125
+    :cond_3
+    add-int/lit8 p1, p1, 0x1
+
+    .line 127
+    goto :goto_3
+
+    .line 128
+    :cond_4
+    iget-boolean p1, v3, Landroidx/leanback/widget/NonOverlappingLinearLayout;->q:Z
+
+    .line 130
+    if-eqz p1, :cond_5
+
+    .line 132
+    iput-boolean v2, v3, Landroidx/leanback/widget/NonOverlappingLinearLayout;->q:Z
+
+    .line 134
+    :goto_6
+    invoke-virtual {v1}, Ljava/util/ArrayList;->size()I
+
+    .line 137
+    move-result p1
+
+    .line 138
+    if-ge v2, p1, :cond_5
+
+    .line 140
+    invoke-virtual {v1, v2}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    .line 143
+    move-result-object p1
+
+    .line 144
+    check-cast p1, Ljava/util/ArrayList;
+
+    .line 146
+    invoke-virtual {p1}, Ljava/util/ArrayList;->clear()V
+
+    .line 149
+    add-int/lit8 v2, v2, 0x1
+
+    .line 151
+    goto :goto_6
+
+    .line 152
+    :cond_5
+    return-void
+
+    .line 153
+    :catchall_2
+    move-exception v0
+
+    .line 154
+    move-object v3, p0
+
+    .line 155
+    goto :goto_5
+
+    .line 156
+    :goto_7
+    iget-boolean p2, v3, Landroidx/leanback/widget/NonOverlappingLinearLayout;->q:Z
+
+    .line 158
+    if-eqz p2, :cond_6
+
+    .line 160
+    iput-boolean v2, v3, Landroidx/leanback/widget/NonOverlappingLinearLayout;->q:Z
+
+    .line 162
+    :goto_8
+    invoke-virtual {v1}, Ljava/util/ArrayList;->size()I
+
+    .line 165
+    move-result p2
+
+    .line 166
+    if-ge v2, p2, :cond_6
+
+    .line 168
+    invoke-virtual {v1, v2}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    .line 171
+    move-result-object p2
+
+    .line 172
+    check-cast p2, Ljava/util/ArrayList;
+
+    .line 174
+    invoke-virtual {p2}, Ljava/util/ArrayList;->clear()V
+
+    .line 177
+    add-int/lit8 v2, v2, 0x1
+
+    .line 179
+    goto :goto_8
+
+    .line 180
+    :cond_6
+    throw p1
+.end method
+
+.method public setFocusableViewAvailableFixEnabled(Z)V
+    .locals 0
+
+    .line 1
+    iput-boolean p1, p0, Landroidx/leanback/widget/NonOverlappingLinearLayout;->p:Z
+
+    .line 3
+    return-void
+.end method

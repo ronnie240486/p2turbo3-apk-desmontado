@@ -1,0 +1,32 @@
+package p118v0;
+
+import A0.q;
+import android.content.Context;
+import androidx.recyclerview.widget.C0231z;
+
+/* JADX INFO: compiled from: r8-map-id-d98a0b67e5c72a2b4911c858f975447f53681d48dbca85ac5f9796dbc206c367 */
+/* JADX INFO: loaded from: classes.dex */
+public final class y {
+
+    /* JADX INFO: renamed from: a, reason: collision with root package name */
+    public final Context f12312a;
+
+    /* JADX INFO: renamed from: c, reason: collision with root package name */
+    public q f12314c;
+
+    /* JADX INFO: renamed from: d, reason: collision with root package name */
+    public boolean f12315d;
+
+    /* JADX INFO: renamed from: f, reason: collision with root package name */
+    public C0231z f12317f;
+
+    /* JADX INFO: renamed from: b, reason: collision with root package name */
+    public final C0456e f12313b = C0456e.f12247c;
+
+    /* JADX INFO: renamed from: e, reason: collision with root package name */
+    public final H f12316e = H.f12205a;
+
+    public y(Context context) {
+        this.f12312a = context;
+    }
+}

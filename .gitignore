@@ -1,0 +1,30 @@
+# Artefatos temporários de ferramentas
+*.log.bak
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+
+# Saídas locais de compilação/recompilação
+/rebuilt/
+/build-output/
+
+# Metadados locais de IDE
+.idea/
+.vscode/
+*.iml
+
+# Cache de ferramentas
+.gradle/
+.externalNativeBuild/
+.cxx/
+
+# Chaves e credenciais que não devem ser versionadas
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pem
+*.key
+.env
+.env.*

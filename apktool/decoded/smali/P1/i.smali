@@ -1,0 +1,146 @@
+.class public final LP1/i;
+.super Ljava/lang/Object;
+.source "r8-map-id-d98a0b67e5c72a2b4911c858f975447f53681d48dbca85ac5f9796dbc206c367"
+
+# interfaces
+.implements LP1/p;
+
+
+# instance fields
+.field public final synthetic a:Landroid/view/View;
+
+.field public final synthetic b:Ljava/util/ArrayList;
+
+
+# direct methods
+.method public constructor <init>(Landroid/view/View;Ljava/util/ArrayList;)V
+    .locals 0
+
+    .line 1
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 4
+    iput-object p1, p0, LP1/i;->a:Landroid/view/View;
+
+    .line 6
+    iput-object p2, p0, LP1/i;->b:Ljava/util/ArrayList;
+
+    .line 8
+    return-void
+.end method
+
+
+# virtual methods
+.method public final a(LP1/r;)V
+    .locals 4
+
+    .line 1
+    invoke-virtual {p1, p0}, LP1/r;->x(LP1/p;)LP1/r;
+
+    .line 4
+    iget-object p1, p0, LP1/i;->a:Landroid/view/View;
+
+    .line 6
+    const/16 v0, 0x8
+
+    .line 8
+    invoke-virtual {p1, v0}, Landroid/view/View;->setVisibility(I)V
+
+    .line 11
+    iget-object p1, p0, LP1/i;->b:Ljava/util/ArrayList;
+
+    .line 13
+    invoke-virtual {p1}, Ljava/util/ArrayList;->size()I
+
+    .line 16
+    move-result v0
+
+    .line 17
+    const/4 v1, 0x0
+
+    .line 18
+    move v2, v1
+
+    .line 19
+    :goto_0
+    if-ge v2, v0, :cond_0
+
+    .line 21
+    invoke-virtual {p1, v2}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    .line 24
+    move-result-object v3
+
+    .line 25
+    check-cast v3, Landroid/view/View;
+
+    .line 27
+    invoke-virtual {v3, v1}, Landroid/view/View;->setVisibility(I)V
+
+    .line 30
+    add-int/lit8 v2, v2, 0x1
+
+    .line 32
+    goto :goto_0
+
+    .line 33
+    :cond_0
+    return-void
+.end method
+
+.method public final b(LP1/r;)V
+    .locals 0
+
+    .line 1
+    invoke-virtual {p0, p1}, LP1/i;->a(LP1/r;)V
+
+    .line 4
+    return-void
+.end method
+
+.method public final c()V
+    .locals 0
+
+    .line 1
+    return-void
+.end method
+
+.method public final d()V
+    .locals 0
+
+    .line 1
+    return-void
+.end method
+
+.method public final e(LP1/r;)V
+    .locals 0
+
+    .line 1
+    invoke-virtual {p1, p0}, LP1/r;->x(LP1/p;)LP1/r;
+
+    .line 4
+    invoke-virtual {p1, p0}, LP1/r;->a(LP1/p;)V
+
+    .line 7
+    return-void
+.end method
+
+.method public final f(LP1/r;)V
+    .locals 0
+
+    .line 1
+    invoke-virtual {p1, p0}, LP1/r;->x(LP1/p;)LP1/r;
+
+    .line 4
+    invoke-virtual {p1, p0}, LP1/r;->a(LP1/p;)V
+
+    .line 7
+    return-void
+.end method
+
+.method public final g(LP1/r;)V
+    .locals 0
+
+    .line 1
+    return-void
+.end method

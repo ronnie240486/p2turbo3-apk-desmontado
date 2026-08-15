@@ -1,0 +1,31 @@
+.class final Lretrofit2/converter/scalars/ScalarResponseBodyConverters;
+.super Ljava/lang/Object;
+.source "r8-map-id-d98a0b67e5c72a2b4911c858f975447f53681d48dbca85ac5f9796dbc206c367"
+
+
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lretrofit2/converter/scalars/ScalarResponseBodyConverters$ShortResponseBodyConverter;,
+        Lretrofit2/converter/scalars/ScalarResponseBodyConverters$LongResponseBodyConverter;,
+        Lretrofit2/converter/scalars/ScalarResponseBodyConverters$IntegerResponseBodyConverter;,
+        Lretrofit2/converter/scalars/ScalarResponseBodyConverters$FloatResponseBodyConverter;,
+        Lretrofit2/converter/scalars/ScalarResponseBodyConverters$DoubleResponseBodyConverter;,
+        Lretrofit2/converter/scalars/ScalarResponseBodyConverters$CharacterResponseBodyConverter;,
+        Lretrofit2/converter/scalars/ScalarResponseBodyConverters$ByteResponseBodyConverter;,
+        Lretrofit2/converter/scalars/ScalarResponseBodyConverters$BooleanResponseBodyConverter;,
+        Lretrofit2/converter/scalars/ScalarResponseBodyConverters$StringResponseBodyConverter;
+    }
+.end annotation
+
+
+# direct methods
+.method private constructor <init>()V
+    .locals 0
+
+    .line 1
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 4
+    return-void
+.end method

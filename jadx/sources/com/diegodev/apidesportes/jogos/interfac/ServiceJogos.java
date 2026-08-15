@@ -1,0 +1,15 @@
+package com.diegodev.apidesportes.jogos.interfac;
+
+import com.diegodev.apidesportes.jogos.item.ItemJogos;
+import java.util.List;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Url;
+
+/* JADX INFO: compiled from: r8-map-id-d98a0b67e5c72a2b4911c858f975447f53681d48dbca85ac5f9796dbc206c367 */
+/* JADX INFO: loaded from: classes.dex */
+public interface ServiceJogos {
+    @GET
+    Call<List<ItemJogos>> getJogos(@Url String str, @Header("Authorization") String str2);
+}

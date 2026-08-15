@@ -1,0 +1,11 @@
+package com.legacy.prime.BancoSql.series.episodios;
+
+/* JADX INFO: compiled from: r8-map-id-d98a0b67e5c72a2b4911c858f975447f53681d48dbca85ac5f9796dbc206c367 */
+/* JADX INFO: loaded from: classes.dex */
+public interface EpisodioAssistidoDao {
+    EpisodioAssistido getEpisodio(String str);
+
+    EpisodioAssistido getEpisodioCompleto(String str, String str2, String str3);
+
+    void inserirOuAtualizar(EpisodioAssistido episodioAssistido);
+}

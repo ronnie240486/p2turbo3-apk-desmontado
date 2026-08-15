@@ -1,0 +1,7 @@
+.class public abstract Ln/j1;
+.super Ln/O0;
+.source "r8-map-id-d98a0b67e5c72a2b4911c858f975447f53681d48dbca85ac5f9796dbc206c367"
+
+
+# static fields
+.field public static final synthetic a:I

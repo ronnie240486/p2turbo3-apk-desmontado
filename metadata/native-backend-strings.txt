@@ -1,0 +1,68 @@
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/arm64-v8a/libandroidx.graphics.path.so ==
+https://android.googlesource.com/toolchain/llvm-project
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/arm64-v8a/libapi_esportes.so ==
+https://android.googlesource.com/toolchain/llvm-project
+https://android.googlesource.com/toolchain/llvm-project
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/arm64-v8a/libc++_shared.so ==
+https://android.googlesource.com/toolchain/llvm-project
+https://android.googlesource.com/toolchain/llvm-project
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/arm64-v8a/libnative.so ==
+https://android.googlesource.com/toolchain/llvm-project
+https://android.googlesource.com/toolchain/llvm-project
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/arm64-v8a/librealmvlc.so ==
+https://https://domain.com/iidentityHashCodeidmac1indexOfindexOfChildindexOfKeyinflateintintValueinterceptedinvokeisAssignableFromisAttachedToWindowisConnectedisConnectedOrConnectingisDestroyedisEmptyisExpiredisFinishingisFirstLaunchisFromLoginisInternetAvailableisKeyboardVisibleisPrimitiveisShowingisStatefulisTvboxis_rtlis_screenshotislogedismacismobileitemCatDaoitemLiveDaoiteratorjkkidsllaunchSuccessClasslayout_inflaterlengthletralgprime.orglinear_maclinear_userliveDbll_btn_addloadInterpolatorloadJsonFromAssetsAndCallApiloadVideoload_filme_successload_live_successload_serie_successloadingTextloglogolonglongValuelottieLoadermmOnKeyListenermacmac_sizemakeTextmapmaxmaxBufferMsmediaminmin
+https://android.googlesource.com/toolchain/llvm-project
+tokens: domain.com player_api 
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/arm64-v8a/libvlcmedia.so ==
+https://android.googlesource.com/toolchain/llvm-project
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/armeabi-v7a/libandroidx.graphics.path.so ==
+https://android.googlesource.com/toolchain/llvm-project
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/armeabi-v7a/libapi_esportes.so ==
+https://android.googlesource.com/toolchain/llvm-project
+https://android.googlesource.com/toolchain/llvm-project
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/armeabi-v7a/libc++_shared.so ==
+https://android.googlesource.com/toolchain/llvm-project
+https://android.googlesource.com/toolchain/llvm-project
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/armeabi-v7a/libnative.so ==
+https://android.googlesource.com/toolchain/llvm-project
+https://android.googlesource.com/toolchain/llvm-project
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/armeabi-v7a/librealmvlc.so ==
+https://https://domain.com/iidentityHashCodeidmac1indexOfindexOfChildindexOfKeyinflateintintValueinterceptedinvokeisAssignableFromisAttachedToWindowisConnectedisConnectedOrConnectingisDestroyedisEmptyisExpiredisFinishingisFirstLaunchisFromLoginisInternetAvailableisKeyboardVisibleisPrimitiveisShowingisStatefulisTvboxis_rtlis_screenshotislogedismacismobileitemCatDaoitemLiveDaoiteratorjkkidsllaunchSuccessClasslayout_inflaterlengthletralgprime.orglinear_maclinear_userliveDbll_btn_addloadInterpolatorloadJsonFromAssetsAndCallApiloadVideoload_filme_successload_live_successload_serie_successloadingTextloglogolonglongValuelottieLoadermmOnKeyListenermacmac_sizemakeTextmapmaxmaxBufferMsmediaminmin
+https://android.googlesource.com/toolchain/llvm-project
+tokens: domain.com player_api 
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/armeabi-v7a/libvlcmedia.so ==
+https://android.googlesource.com/toolchain/llvm-project
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/x86/libandroidx.graphics.path.so ==
+https://android.googlesource.com/toolchain/llvm-project
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/x86/libapi_esportes.so ==
+https://android.googlesource.com/toolchain/llvm-project
+https://android.googlesource.com/toolchain/llvm-project
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/x86/libc++_shared.so ==
+https://android.googlesource.com/toolchain/llvm-project
+https://android.googlesource.com/toolchain/llvm-project
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/x86/libnative.so ==
+https://android.googlesource.com/toolchain/llvm-project
+https://android.googlesource.com/toolchain/llvm-project
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/x86/librealmvlc.so ==
+https://https://domain.com/iidentityHashCodeidmac1indexOfindexOfChildindexOfKeyinflateintintValueinterceptedinvokeisAssignableFromisAttachedToWindowisConnectedisConnectedOrConnectingisDestroyedisEmptyisExpiredisFinishingisFirstLaunchisFromLoginisInternetAvailableisKeyboardVisibleisPrimitiveisShowingisStatefulisTvboxis_rtlis_screenshotislogedismacismobileitemCatDaoitemLiveDaoiteratorjkkidsllaunchSuccessClasslayout_inflaterlengthletralgprime.orglinear_maclinear_userliveDbll_btn_addloadInterpolatorloadJsonFromAssetsAndCallApiloadVideoload_filme_successload_live_successload_serie_successloadingTextloglogolonglongValuelottieLoadermmOnKeyListenermacmac_sizemakeTextmapmaxmaxBufferMsmediaminmin
+https://android.googlesource.com/toolchain/llvm-project
+tokens: domain.com player_api 
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/x86/libvlcmedia.so ==
+https://android.googlesource.com/toolchain/llvm-project
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/x86_64/libandroidx.graphics.path.so ==
+https://android.googlesource.com/toolchain/llvm-project
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/x86_64/libapi_esportes.so ==
+https://android.googlesource.com/toolchain/llvm-project
+https://android.googlesource.com/toolchain/llvm-project
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/x86_64/libc++_shared.so ==
+https://android.googlesource.com/toolchain/llvm-project
+https://android.googlesource.com/toolchain/llvm-project
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/x86_64/libnative.so ==
+https://android.googlesource.com/toolchain/llvm-project
+https://android.googlesource.com/toolchain/llvm-project
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/x86_64/librealmvlc.so ==
+https://https://domain.com/iidentityHashCodeidmac1indexOfindexOfChildindexOfKeyinflateintintValueinterceptedinvokeisAssignableFromisAttachedToWindowisConnectedisConnectedOrConnectingisDestroyedisEmptyisExpiredisFinishingisFirstLaunchisFromLoginisInternetAvailableisKeyboardVisibleisPrimitiveisShowingisStatefulisTvboxis_rtlis_screenshotislogedismacismobileitemCatDaoitemLiveDaoiteratorjkkidsllaunchSuccessClasslayout_inflaterlengthletralgprime.orglinear_maclinear_userliveDbll_btn_addloadInterpolatorloadJsonFromAssetsAndCallApiloadVideoload_filme_successload_live_successload_serie_successloadingTextloglogolonglongValuelottieLoadermmOnKeyListenermacmac_sizemakeTextmapmaxmaxBufferMsmediaminmin
+https://android.googlesource.com/toolchain/llvm-project
+tokens: domain.com player_api 
+== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/x86_64/libvlcmedia.so ==
+https://android.googlesource.com/toolchain/llvm-project

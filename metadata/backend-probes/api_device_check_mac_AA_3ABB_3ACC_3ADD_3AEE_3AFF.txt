@@ -1,0 +1,4 @@
+== api/device/check?mac=AA%3ABB%3ACC%3ADD%3AEE%3AFF ==
+{"found":false,"allowed":false,"mac_registered":false,"message":"Device não cadastrado."}
+HTTP_STATUS=200
+CONTENT_TYPE=application/json; charset=utf-8

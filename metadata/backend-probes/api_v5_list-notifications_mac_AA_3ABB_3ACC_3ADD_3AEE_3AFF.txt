@@ -1,0 +1,4 @@
+== api/v5/list-notifications?mac=AA%3ABB%3ACC%3ADD%3AEE%3AFF ==
+{"success":false,"error":"MAC não cadastrado","notifications":[]}
+HTTP_STATUS=404
+CONTENT_TYPE=application/json; charset=utf-8

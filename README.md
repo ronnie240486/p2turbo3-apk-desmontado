@@ -69,3 +69,9 @@ O APK original e as bibliotecas nativas foram preservados no repositório. Como 
 ## Licença
 
 Nenhuma licença foi inferida a partir do APK. A licença, a autorização de análise e os direitos de redistribuição devem ser definidos pelo titular do aplicativo antes de qualquer uso público ou comercial.
+
+## Integração backend Rencia
+
+A build `artifacts/Infinitus-3.1-backend.apk` aplica o contrato de `GUIA_BACKEND_NOVOS_APLICATIVOS.pdf` para o aplicativo Infinitus. O launcher passa por `BackendGateActivity`, que valida o MAC e o campo `allowed` em `GET /api/device/check`, sincroniza as listas em `GET /api/guim.php` e somente então abre a tela nativa. O módulo `BackendMonitorService` executa heartbeat, avisos e comandos remotos a cada 60 segundos, registra falhas de reprodução, confirma alertas e importa listas retornadas pelo painel no banco interno `ItemDns`.
+
+O módulo está em `backend_module/` e é empacotado como `classes2.dex`, enquanto `classes.dex` permanece byte a byte igual ao APK original. As rotas e regras completas estão resumidas em `metadata/backend-guide-summary.md`; os probes públicos com MAC de exemplo estão em `metadata/backend-probes/`. A nova build foi assinada e validada nos esquemas v1, v2 e v3. A validação de execução em dispositivo real depende de um aparelho cadastrado no painel com MAC autorizado.

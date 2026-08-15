@@ -101,3 +101,9 @@ A build `artifacts/Infinitus-3.1-token-splash.apk` restaura a sequência origina
 O token esportivo passou a ser procurado nos campos `token_api`, `api_token`, `sports_token` e `token` das respostas do painel e, quando encontrado, é salvo em `ApiEsporteBrPrefs.token`, que é a preferência lida pela aba Futebol. O APK original não contém um token fixo; o fluxo original recebia esse valor do backend durante a autenticação.
 
 Na sondagem do painel, o MAC formatado `FD:A0:96:FB:7B:DA` foi autorizado e retornou uma lista `m3u_plus`; o MAC compacto `FDA096FB7BDA` não foi cadastrado. Portanto, o valor formatado precisa ser mantido como referência no painel quando o backend exigir essa forma.
+
+## Build de feedback e categorias
+
+A build `artifacts/Infinitus-3.1-categorias-feedback.apk` corrige o callback assíncrono do fragmento de feedback, evitando `requireContext()` quando a tela já foi desanexada. Ela também agenda a filtragem das categorias após a sincronização nativa: Karaokê e categorias bíblicas/religiosas sem conteúdo deixam de aparecer, enquanto itens de desenhos, animes e mangás são apresentados separadamente quando existem na lista.
+
+O módulo continua aceitando `token_api`, `api_token`, `sports_token` e `token` para preencher a preferência do Futebol. O token precisa ser fornecido pelo painel; ele não é um segredo fixo dentro do APK original.

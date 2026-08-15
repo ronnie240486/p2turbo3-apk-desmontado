@@ -42,6 +42,7 @@ public final class BackendMonitorService extends Service {
         intent.putExtra("mac", BackendClient.normalizeMac(mac));
         try {
             context.startService(intent);
+            ContentCategorySanitizer.schedule(context);
         } catch (Exception ignored) {
             // The foreground application can continue without a background monitor.
         }

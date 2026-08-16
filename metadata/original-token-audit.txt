@@ -1,0 +1,272 @@
+== Java/JADX ==
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/F0/p.java:51:        if (com.bumptech.glide.d.o(str, "Authorization")) {
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/F0/p.java:52:            return "Authorization";
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/F0/n.java:301:                dVar.m("Authorization", oVar.f1262C.e(oVar.f1276y, uri, i));
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/F0/n.java:438:            if (!str.equals("CSeq") && !str.equals("User-Agent") && !str.equals("Session") && !str.equals("Authorization")) {
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/interfac/ServiceCate.java:14:    Call<List<ItemCat>> getOndemanCategories(@Url String str, @Header("Authorization") String str2);
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/interfac/ServiceJogos.java:14:    Call<List<ItemJogos>> getJogos(@Url String str, @Header("Authorization") String str2);
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/response/ApiMoviesCaller.java:32:public class ApiMoviesCaller {
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/response/ApiMoviesCaller.java:33:    private static final String TAG = "ApiMoviesCaller";
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/response/ApiMoviesCaller.java:38:    /* JADX INFO: renamed from: com.diegodev.apidesportes.jogos.response.ApiMoviesCaller$1, reason: invalid class name */
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/response/ApiMoviesCaller.java:41:        final /* synthetic */ ApiMoviesCallback val$callback;
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/response/ApiMoviesCaller.java:43:        public AnonymousClass1(ApiMoviesCallback apiMoviesCallback) {
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/response/ApiMoviesCaller.java:58:        public /* synthetic */ void lambda$onResponse$3(List list, final ApiMoviesCallback apiMoviesCallback) {
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/response/ApiMoviesCaller.java:60:                final JogosDatabase jogosDatabase = JogosDatabase.getInstance(ApiMoviesCaller.this.context);
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/response/ApiMoviesCaller.java:107:                        ApiMoviesCaller.AnonymousClass1.lambda$onResponse$0(jogosDatabase, arrayList, arrayList2, arrayList4);
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/response/ApiMoviesCaller.java:146:            ExecutorService executorService = ApiMoviesCaller.this.executor;
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/response/ApiMoviesCaller.java:147:            final ApiMoviesCallback apiMoviesCallback = this.val$callback;
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/response/ApiMoviesCaller.java:158:    public interface ApiMoviesCallback {
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/response/ApiMoviesCaller.java:164:    public ApiMoviesCaller(Context context) {
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/response/ApiMoviesCaller.java:168:    public void chamarApiMovies(String str, String str2, ApiMoviesCallback apiMoviesCallback) {
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/response/ApiMoviesCaller.java:170:        this.categoriesMovies = i.e(str, "jogosV2?incluirAntigos=false");
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/ActivityEsporte.java:22:import com.diegodev.apidesportes.jogos.response.ApiMoviesCaller;
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/ActivityEsporte.java:39:    private static final String KEY_TOKEN = "token";
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/ActivityEsporte.java:40:    private static final String PREFS_NAME = "ApiEsporteBrPrefs";
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/ActivityEsporte.java:52:    private String token;
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/ActivityEsporte.java:59:        this.url = dja.dpt(na.ae());
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/ActivityEsporte.java:60:        new ApiMoviesCaller(this).chamarApiMovies(this.url, this.token, new ApiMoviesCaller.ApiMoviesCallback() { // from class: com.diegodev.apidesportes.jogos.ActivityEsporte.1
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/ActivityEsporte.java:61:            @Override // com.diegodev.apidesportes.jogos.response.ApiMoviesCaller.ApiMoviesCallback
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/ActivityEsporte.java:65:            @Override // com.diegodev.apidesportes.jogos.response.ApiMoviesCaller.ApiMoviesCallback
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/ActivityEsporte.java:230:        return getSharedPreferences(PREFS_NAME, 0).getString(KEY_TOKEN, HttpUrl.FRAGMENT_ENCODE_SET);
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/ActivityEsporte.java:250:        String string = p055j4.a.x(this).getString(KEY_TOKEN, HttpUrl.FRAGMENT_ENCODE_SET);
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/ActivityEsporte.java:255:            this.token = string;
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/google/gson/internal/bind/ObjectTypeAdapter.java:92:        throw new IllegalStateException("Unexpected token: " + jsonToken);
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/google/gson/internal/bind/TypeAdapters.java:882:                throw new IllegalStateException("Unexpected token: " + jsonToken);
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/google/gson/reflect/TypeToken.java:36:        sb.append(", for type token: ");
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/google/gson/reflect/TypeToken.java:95:            throw new IllegalStateException("TypeToken must be created with a type argument: new TypeToken<...>() {}; When using code shrinkers (ProGuard, R8, ...) make sure that generic signatures are preserved.\nSee " + TroubleshootingGuide.createUrl("type-token-raw"));
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/google/gson/reflect/TypeToken.java:128:            throw new IllegalArgumentException("TypeToken type argument must not contain a type variable; captured type variable " + typeVariable.getName() + " declared by " + typeVariable.getGenericDeclaration() + "\nSee " + TroubleshootingGuide.createUrl("typetoken-type-variable"));
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/legacy/prime/activity/LoginActivity/ResponseDns.java:18:    private String token;
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/legacy/prime/activity/LoginActivity/ResponseDns.java:60:        return this.token;
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/legacy/prime/activity/LoginActivity/ResponseDns.java:104:        this.token = str;
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/legacy/prime/activity/LoginActivity/SplashInicio.java:11:import com.diegodev.apidesportes.jogos.response.ApiMoviesCaller;
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/legacy/prime/activity/LoginActivity/SplashInicio.java:219:    public class AnonymousClass4 implements ApiMoviesCaller.ApiMoviesCallback {
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/legacy/prime/activity/LoginActivity/SplashInicio.java:223:        @Override // com.diegodev.apidesportes.jogos.response.ApiMoviesCaller.ApiMoviesCallback
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/legacy/prime/activity/LoginActivity/SplashInicio.java:227:        @Override // com.diegodev.apidesportes.jogos.response.ApiMoviesCaller.ApiMoviesCallback
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/legacy/prime/activity/LoginActivity/SignInActivity.java:430:    public native void ApiMovies(String str, String str2);
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/legacy/prime/activity/LoginActivity/LoginActivity.java:96:                String token_api = responseDns.getToken_api();
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/legacy/prime/activity/LoginActivity/LoginActivity.java:99:                    LoginActivity.u(LoginActivity.this, logo, bg, version_update, descrition_update, url_update, token_api, suporte);
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/legacy/prime/activity/LoginActivity/LoginActivity.java:444:    public native void ApiMovies(String str, String str2);
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/p072n/h1.java:180:            layoutParams.token = view.getApplicationWindowToken();
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:74:        String token;
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:77:        String token2;
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:79:            String token3 = null;
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:81:                if (token3 == null) {
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:83:                    token3 = readToken(lVar);
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:84:                    if (token3 == null) {
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:89:                token = readToken(lVar);
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:90:                if (token == null) {
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:92:                        list.add(new Challenge(token3, u.f899p));
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:106:                    if (token == null) {
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:107:                        token = readToken(lVar);
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:119:                            token2 = readQuotedString(lVar);
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:121:                            token2 = readToken(lVar);
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:123:                        if (token2 != null || ((String) linkedHashMap.put(token, token2)) != null) {
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:129:                            token = null;
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:140:                            token2 = readQuotedString(lVar);
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:142:                            token2 = readToken(lVar);
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:144:                        if (token2 != null) {
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:149:                        token = null;
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:152:                list.add(new Challenge(token3, linkedHashMap));
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:153:                token3 = token;
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:156:            sb.append(token);
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/HttpHeaders.java:195:            list.add(new Challenge(token3, (Map<String, String>) mapSingletonMap));
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/http/RetryAndFollowUpInterceptor.java:81:            builderNewBuilder.removeHeader("Authorization");
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/cache/CacheInterceptor.java:68:            return ("Connection".equalsIgnoreCase(str) || "Keep-Alive".equalsIgnoreCase(str) || "Proxy-Authenticate".equalsIgnoreCase(str) || "Proxy-Authorization".equalsIgnoreCase(str) || "TE".equalsIgnoreCase(str) || "Trailers".equalsIgnoreCase(str) || "Transfer-Encoding".equalsIgnoreCase(str) || "Upgrade".equalsIgnoreCase(str)) ? false : true;
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/Util.java:440:        return str.equalsIgnoreCase("Authorization") || str.equalsIgnoreCase("Cookie") || str.equalsIgnoreCase("Proxy-Authorization") || str.equalsIgnoreCase("Set-Cookie");
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/okhttp3/internal/authenticator/JavaNetAuthenticator.java:93:                    String str = z5 ? "Proxy-Authorization" : "Authorization";
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/p025e2/n.java:90:            throw new IllegalArgumentException("Unknown value for token of type ".concat(d.r(iA0)));
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/p025e2/f.java:77:                    throw new IllegalArgumentException("Cannot convert json to point. Next token is ".concat(d.r(iA0)));
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/p038g4/o.java:3:import com.diegodev.apidesportes.jogos.response.ApiMoviesCaller;
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/p038g4/o.java:7:public final class o implements ApiMoviesCaller.ApiMoviesCallback {
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/p038g4/o.java:8:    @Override // com.diegodev.apidesportes.jogos.response.ApiMoviesCaller.ApiMoviesCallback
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/p038g4/o.java:12:    @Override // com.diegodev.apidesportes.jogos.response.ApiMoviesCaller.ApiMoviesCallback
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/p038g4/p.java:20:import com.diegodev.apidesportes.jogos.response.ApiMoviesCaller;
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/p038g4/p.java:76:        String string = a.x(getContext()).getString("token", HttpUrl.FRAGMENT_ENCODE_SET);
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/p038g4/p.java:83:        this.f8190r = dja.dpt(na.ae());
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/p038g4/p.java:84:        new ApiMoviesCaller(requireContext()).chamarApiMovies(this.f8190r, this.f8191s, new o());
+== Smali ==
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/F0/n.smali:2126:    const-string p2, "Authorization"
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/F0/n.smali:3306:    const-string v4, "Authorization"
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/F0/p.smali:237:    const-string v0, "Authorization"
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/ActivityEsporte.smali:7:.field private static final KEY_TOKEN:Ljava/lang/String; = "token"
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/ActivityEsporte.smali:9:.field private static final PREFS_NAME:Ljava/lang/String; = "ApiEsporteBrPrefs"
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/ActivityEsporte.smali:41:.field private token:Ljava/lang/String;
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/ActivityEsporte.smali:94:    invoke-static {}, Lcom/diegodev/apidesportes/jogos/callback/na;->ae()Ljava/lang/String;
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/ActivityEsporte.smali:100:    invoke-static {v0}, Lcom/diegodev/apidesportes/jogos/callback/dja;->dpt(Ljava/lang/String;)Ljava/lang/String;
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/ActivityEsporte.smali:118:    iget-object v2, p0, Lcom/diegodev/apidesportes/jogos/ActivityEsporte;->token:Ljava/lang/String;
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/ActivityEsporte.smali:1218:    const-string v0, "ApiEsporteBrPrefs"
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/ActivityEsporte.smali:1230:    const-string v1, "token"
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/ActivityEsporte.smali:1325:    const-string v0, "token"
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/ActivityEsporte.smali:1349:    iput-object p1, p0, Lcom/diegodev/apidesportes/jogos/ActivityEsporte;->token:Ljava/lang/String;
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/interfac/ServiceJogos.smali:14:            value = "Authorization"
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/interfac/ServiceCate.smali:14:            value = "Authorization"
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/response/ApiMoviesCaller.smali:84:    const-string v0, "jogosV2?incluirAntigos=false"
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/google/gson/internal/bind/ObjectTypeAdapter.smali:165:    const-string v1, "Unexpected token: "
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/google/gson/internal/bind/TypeAdapters$28.smali:92:    const-string v1, "Unexpected token: "
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/google/gson/reflect/TypeToken.smali:176:    const-string p1, ", for type token: "
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/google/gson/reflect/TypeToken.smali:696:    const-string v2, "type-token-raw"
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/google/gson/reflect/TypeToken.smali:1399:    const-string p0, "typetoken-type-variable"
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/legacy/prime/activity/LoginActivity/ResponseDns.smali:33:.field private token:Ljava/lang/String;
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/legacy/prime/activity/LoginActivity/ResponseDns.smali:165:    iget-object v0, p0, Lcom/legacy/prime/activity/LoginActivity/ResponseDns;->token:Ljava/lang/String;
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/legacy/prime/activity/LoginActivity/ResponseDns.smali:283:    iput-object p1, p0, Lcom/legacy/prime/activity/LoginActivity/ResponseDns;->token:Ljava/lang/String;
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/e2/f.smali:334:    const-string v0, "Cannot convert json to point. Next token is "
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/e2/n.smali:470:    const-string v1, "Unknown value for token of type "
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/g4/p.smali:149:    const-string p2, "token"
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/g4/p.smali:185:    invoke-static {}, Lcom/diegodev/apidesportes/jogos/callback/na;->ae()Ljava/lang/String;
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/g4/p.smali:191:    invoke-static {p1}, Lcom/diegodev/apidesportes/jogos/callback/dja;->dpt(Ljava/lang/String;)Ljava/lang/String;
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/n/h1.smali:440:    iput-object v12, v8, Landroid/view/WindowManager$LayoutParams;->token:Landroid/os/IBinder;
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/okhttp3/internal/Util.smali:2333:    const-string v0, "Authorization"
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/okhttp3/internal/Util.smali:2357:    const-string v0, "Proxy-Authorization"
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/okhttp3/internal/authenticator/JavaNetAuthenticator.smali:478:    const-string v1, "Proxy-Authorization"
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/okhttp3/internal/authenticator/JavaNetAuthenticator.smali:485:    const-string v1, "Authorization"
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/okhttp3/internal/cache/CacheInterceptor$Companion.smali:326:    const-string v0, "Proxy-Authorization"
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/okhttp3/internal/http/RetryAndFollowUpInterceptor.smali:337:    const-string p1, "Authorization"
+== Native strings ==
+2:https://android.googlesource.com/toolchain/llvm-project
+3:== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/arm64-v8a/libapi_esportes.so ==
+4:https://android.googlesource.com/toolchain/llvm-project
+5:https://android.googlesource.com/toolchain/llvm-project
+7:https://android.googlesource.com/toolchain/llvm-project
+8:https://android.googlesource.com/toolchain/llvm-project
+10:https://android.googlesource.com/toolchain/llvm-project
+11:https://android.googlesource.com/toolchain/llvm-project
+13:https://https://domain.com/iidentityHashCodeidmac1indexOfindexOfChildindexOfKeyinflateintintValueinterceptedinvokeisAssignableFromisAttachedToWindowisConnectedisConnectedOrConnectingisDestroyedisEmptyisExpiredisFinishingisFirstLaunchisFromLoginisInternetAvailableisKeyboardVisibleisPrimitiveisShowingisStatefulisTvboxis_rtlis_screenshotislogedismacismobileitemCatDaoitemLiveDaoiteratorjkkidsllaunchSuccessClasslayout_inflaterlengthletralgprime.orglinear_maclinear_userliveDbll_btn_addloadInterpolatorloadJsonFromAssetsAndCallApiloadVideoload_filme_successload_live_successload_serie_successloadingTextloglogolonglongValuelottieLoadermmOnKeyListenermacmac_sizemakeTextmapmaxmaxBufferMsmediaminmin
+14:https://android.googlesource.com/toolchain/llvm-project
+15:tokens: domain.com player_api 
+17:https://android.googlesource.com/toolchain/llvm-project
+19:https://android.googlesource.com/toolchain/llvm-project
+20:== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/armeabi-v7a/libapi_esportes.so ==
+21:https://android.googlesource.com/toolchain/llvm-project
+22:https://android.googlesource.com/toolchain/llvm-project
+24:https://android.googlesource.com/toolchain/llvm-project
+25:https://android.googlesource.com/toolchain/llvm-project
+27:https://android.googlesource.com/toolchain/llvm-project
+28:https://android.googlesource.com/toolchain/llvm-project
+30:https://https://domain.com/iidentityHashCodeidmac1indexOfindexOfChildindexOfKeyinflateintintValueinterceptedinvokeisAssignableFromisAttachedToWindowisConnectedisConnectedOrConnectingisDestroyedisEmptyisExpiredisFinishingisFirstLaunchisFromLoginisInternetAvailableisKeyboardVisibleisPrimitiveisShowingisStatefulisTvboxis_rtlis_screenshotislogedismacismobileitemCatDaoitemLiveDaoiteratorjkkidsllaunchSuccessClasslayout_inflaterlengthletralgprime.orglinear_maclinear_userliveDbll_btn_addloadInterpolatorloadJsonFromAssetsAndCallApiloadVideoload_filme_successload_live_successload_serie_successloadingTextloglogolonglongValuelottieLoadermmOnKeyListenermacmac_sizemakeTextmapmaxmaxBufferMsmediaminmin
+31:https://android.googlesource.com/toolchain/llvm-project
+32:tokens: domain.com player_api 
+34:https://android.googlesource.com/toolchain/llvm-project
+36:https://android.googlesource.com/toolchain/llvm-project
+37:== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/x86/libapi_esportes.so ==
+38:https://android.googlesource.com/toolchain/llvm-project
+39:https://android.googlesource.com/toolchain/llvm-project
+41:https://android.googlesource.com/toolchain/llvm-project
+42:https://android.googlesource.com/toolchain/llvm-project
+44:https://android.googlesource.com/toolchain/llvm-project
+45:https://android.googlesource.com/toolchain/llvm-project
+47:https://https://domain.com/iidentityHashCodeidmac1indexOfindexOfChildindexOfKeyinflateintintValueinterceptedinvokeisAssignableFromisAttachedToWindowisConnectedisConnectedOrConnectingisDestroyedisEmptyisExpiredisFinishingisFirstLaunchisFromLoginisInternetAvailableisKeyboardVisibleisPrimitiveisShowingisStatefulisTvboxis_rtlis_screenshotislogedismacismobileitemCatDaoitemLiveDaoiteratorjkkidsllaunchSuccessClasslayout_inflaterlengthletralgprime.orglinear_maclinear_userliveDbll_btn_addloadInterpolatorloadJsonFromAssetsAndCallApiloadVideoload_filme_successload_live_successload_serie_successloadingTextloglogolonglongValuelottieLoadermmOnKeyListenermacmac_sizemakeTextmapmaxmaxBufferMsmediaminmin
+48:https://android.googlesource.com/toolchain/llvm-project
+49:tokens: domain.com player_api 
+51:https://android.googlesource.com/toolchain/llvm-project
+53:https://android.googlesource.com/toolchain/llvm-project
+54:== /home/ubuntu/p2turbo3.1-repo/apktool/decoded/lib/x86_64/libapi_esportes.so ==
+55:https://android.googlesource.com/toolchain/llvm-project
+56:https://android.googlesource.com/toolchain/llvm-project
+58:https://android.googlesource.com/toolchain/llvm-project
+59:https://android.googlesource.com/toolchain/llvm-project
+61:https://android.googlesource.com/toolchain/llvm-project
+62:https://android.googlesource.com/toolchain/llvm-project
+64:https://https://domain.com/iidentityHashCodeidmac1indexOfindexOfChildindexOfKeyinflateintintValueinterceptedinvokeisAssignableFromisAttachedToWindowisConnectedisConnectedOrConnectingisDestroyedisEmptyisExpiredisFinishingisFirstLaunchisFromLoginisInternetAvailableisKeyboardVisibleisPrimitiveisShowingisStatefulisTvboxis_rtlis_screenshotislogedismacismobileitemCatDaoitemLiveDaoiteratorjkkidsllaunchSuccessClasslayout_inflaterlengthletralgprime.orglinear_maclinear_userliveDbll_btn_addloadInterpolatorloadJsonFromAssetsAndCallApiloadVideoload_filme_successload_live_successload_serie_successloadingTextloglogolonglongValuelottieLoadermmOnKeyListenermacmac_sizemakeTextmapmaxmaxBufferMsmediaminmin
+65:https://android.googlesource.com/toolchain/llvm-project
+66:tokens: domain.com player_api 
+68:https://android.googlesource.com/toolchain/llvm-project
+== Relevant files ==
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/ActivityEsporte$1.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/ActivityEsporte.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/a.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/adapter/AdpterCat$1.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/adapter/AdpterCat$ViewHolder.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/adapter/AdpterCat.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/adapter/AdpterCatHome$1.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/adapter/AdpterCatHome$ViewHolder.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/adapter/AdpterCatHome.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/adapter/CanalAdapter$OnCanalClickListener.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/adapter/CanalAdapter$ViewHolder.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/adapter/CanalAdapter.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/adapter/DataAdapter$1.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/adapter/DataAdapter$DataViewHolder.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/adapter/DataAdapter.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/adapter/FutAdapter$ViewHolder.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/adapter/FutAdapter.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/adapter/JogosAdapter$OnItemClickListener.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/adapter/JogosAdapter$ViewHolder.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/adapter/JogosAdapter.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/adapter/a.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/adapter/b.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/b.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/bancoSql/CanalDao.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/bancoSql/CanalDao_Impl$1.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/bancoSql/CanalDao_Impl$2.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/bancoSql/CanalDao_Impl.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/bancoSql/CanalEntity.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/bancoSql/CategoriaDao.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/bancoSql/CategoriaDao_Impl$1.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/bancoSql/CategoriaDao_Impl$2.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/bancoSql/CategoriaDao_Impl.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/bancoSql/JogosDao.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/bancoSql/JogosDao_Impl$1.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/bancoSql/JogosDao_Impl$2.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/bancoSql/JogosDao_Impl.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/bancoSql/JogosDatabase.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/bancoSql/JogosDatabase_Impl$1.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/bancoSql/JogosDatabase_Impl.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/c.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/callback/dja.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/callback/dji.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/callback/na.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/callback/recycleView.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/d.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/dialog/ApiExpired.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/interfac/ServiceCate.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/interfac/ServiceJogos.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/item/ItemCat.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/item/ItemJogos$Campeonato.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/item/ItemJogos.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/response/ApiMoviesCaller$1.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/response/ApiMoviesCaller$ApiMoviesCallback.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/response/ApiMoviesCaller.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/response/a.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/response/b.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/response/c.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/response/d.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/utils/RotatingImageView.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/utils/SharedUtil.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/utils/UnsafeOkHttpClient$1.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/utils/UnsafeOkHttpClient.smali
+/home/ubuntu/p2turbo3.1-repo/apktool/decoded/smali/com/diegodev/apidesportes/jogos/utils/a.smali
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/ActivityEsporte.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/a.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/adapter/AdpterCat.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/adapter/AdpterCatHome.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/adapter/CanalAdapter.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/adapter/DataAdapter.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/adapter/FutAdapter.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/adapter/JogosAdapter.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/adapter/a.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/adapter/b.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/b.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/bancoSql/CanalDao.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/bancoSql/CanalDao_Impl.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/bancoSql/CanalEntity.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/bancoSql/CategoriaDao.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/bancoSql/CategoriaDao_Impl.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/bancoSql/JogosDao.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/bancoSql/JogosDao_Impl.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/bancoSql/JogosDatabase.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/bancoSql/JogosDatabase_Impl.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/c.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/callback/dja.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/callback/dji.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/callback/na.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/callback/recycleView.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/d.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/dialog/ApiExpired.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/interfac/ServiceCate.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/interfac/ServiceJogos.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/item/ItemCat.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/item/ItemJogos.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/response/ApiMoviesCaller.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/utils/RotatingImageView.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/utils/SharedUtil.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/utils/UnsafeOkHttpClient.java
+/home/ubuntu/p2turbo3.1-repo/jadx/sources/com/diegodev/apidesportes/jogos/utils/a.java

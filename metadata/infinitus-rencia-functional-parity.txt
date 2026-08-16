@@ -1,0 +1,9 @@
+classes.dex
+492217e928336c2275d163978e60a6feb895ed296d1598409c07e22087a397c9  /tmp/tmp.mAi45wJT2w/good/classes.dex
+492217e928336c2275d163978e60a6feb895ed296d1598409c07e22087a397c9  /tmp/tmp.mAi45wJT2w/new/classes.dex
+classes2.dex
+3c0c0f9d7647749ee2abe91f593fd01b2919a4db38e0bd31c34de1971f2775c0  /tmp/tmp.mAi45wJT2w/good/classes2.dex
+3c0c0f9d7647749ee2abe91f593fd01b2919a4db38e0bd31c34de1971f2775c0  /tmp/tmp.mAi45wJT2w/new/classes2.dex
+apk_size_bytes
+/home/ubuntu/upload/ImperioPlay-HomeLoopFix.apk 15814909
+/home/ubuntu/p2turbo3.1-repo/artifacts/Infinitus-3.1-rencia-functional.apk 15298813

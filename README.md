@@ -119,3 +119,7 @@ A aba Futebol continua usando o token fornecido pelo painel (`token_api`, `api_t
 A build `artifacts/Infinitus-3.1-rencia-onixspeed.apk` mantém o Rencia como backend de autorização e usa a fonte de conteúdo apenas quando ela é devolvida pelo endpoint `guim.php` para o MAC autorizado. A fonte M3U/Xtream atual é Onixspeed; ela não foi embutida no APK e suas credenciais não são registradas em logs.
 
 A base do servidor é normalizada para HTTPS antes de preparar a sessão Xtream. A lista validada possui canais, filmes e séries. O token da aba Futebol continua sendo uma credencial independente, fornecida pelo backend no campo `token`/`token_api`.
+
+## Variante conservadora do player
+
+A build `artifacts/Infinitus-3.1-rencia-original-player.apk` preserva o `classes.dex` original dos players e adiciona somente o módulo Rencia/Onixspeed em `classes2.dex`. Ela foi criada para eliminar o risco de crash introduzido pela reassemblagem do DEX durante as tentativas anteriores.

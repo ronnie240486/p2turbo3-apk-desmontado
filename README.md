@@ -131,3 +131,5 @@ A build `artifacts/Infinitus-3.1-crash-logs.apk` grava automaticamente exceçõe
 A build `artifacts/Infinitus-3.1-player-update-logs.apk` corrige URLs nulas em filmes/séries, redireciona Atualizar Lista para o gate Rencia e mantém Logs do aplicativo em Configurações.
 ## Build de sessão completa do player
 A build `artifacts/Infinitus-3.1-session-player.apk` consulta `player_api.php` e grava os campos completos `user_info`/`server_info` usados pelo player original.
+## Variante DEX original + Rencia
+A build `artifacts/Infinitus-3.1-original-dex-rencia.apk` preserva o `classes.dex` original byte a byte e mantém a integração Rencia em `classes2.dex`, evitando a reassemblagem dos players.

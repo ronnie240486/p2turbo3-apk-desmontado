@@ -188,21 +188,39 @@ public final class BackendMonitorService extends Service {
                     .putString("id_lista", id)
                     .putString("format", format)
                     .putBoolean("streaming", true)
+                    .putBoolean("rencia_access", true)
+                    .putString("status", "Active")
+                    .putString("server_protocol", url.toLowerCase().startsWith("https://") ? "https" : "http")
                     .putString("ExpiredDateServe", expiration.isEmpty() ? "ILIMITADO" : expiration)
                     .apply();
 
             SharedPreferences session = context.getSharedPreferences("streambox_sph", MODE_PRIVATE);
+            String sessionBase = BackendClient.normalizeServerBase(firstNonEmpty(first.optString("url_data", ""), url));
+            String hostOnly = hostOnly(sessionBase);
             session.edit()
                     .putString("username", username)
                     .putString("password", password)
+                    .putString("status", "Active")
+                    .putString("url_data", hostOnly)
+                    .putString("server_protocol", sessionBase.toLowerCase().startsWith("https://") ? "https" : "http")
+                    .putString("version", "1.0")
+                    .putInt("revision", 0)
+                    .putString("message", "")
+                    .putString("exp_date", expiration.isEmpty() ? "0" : expiration)
+                    .putString("is_trial", "0")
+                    .putString("active_cons", "0")
+                    .putString("created_at", "0")
+                    .putString("max_connections", "1")
                     .putString("login_type", "one_ui")
+                    .putBoolean("select_playlist", false)
+                    .putBoolean("select_xui", true)
+                    .putString("any_name", "")
                     .putBoolean("first_open", false)
+                    .putBoolean("is_xui", true)
                     .putBoolean("islogged", true)
                     .putBoolean("autologin", true)
                     .putInt("live_format", 1)
-                    .putString("status", "1")
                     .putInt("auth", 1)
-                    .putString("url_data", BackendClient.normalizeServerBase(firstNonEmpty(first.optString("url_data", ""), url)))
                     .putString("server_api_url", config.optString("server_api_url", ""))
                     .apply();
 
@@ -213,6 +231,14 @@ public final class BackendMonitorService extends Service {
                         .apply();
                 user.edit().putString("token", token).apply();
             }
+            String mac = context.getSharedPreferences(PREFS, MODE_PRIVATE).getString("mac", "");
+            String macUrls = "[{\"dns_title\":\"Rencia\",\"dns_base\":\"" + escape(url) + "\",\"streaming\":true,\"format\":\"\"}]";
+            context.getSharedPreferences("mac_data", MODE_PRIVATE).edit().putString("mac_urls", macUrls).apply();
+            context.getSharedPreferences(PREFS, MODE_PRIVATE).edit()
+                    .putString("active_url", url)
+                    .putString("active_username", username)
+                    .putString("active_type", format)
+                    .apply();
             ProviderSessionBootstrap.apply(context, url, username, password);
         } catch (Exception ignored) {
             // Session preparation must not crash the gate.
@@ -224,15 +250,28 @@ public final class BackendMonitorService extends Service {
             return "";
         }
         String original = firstNonEmpty(
-                source.optString("playlist_url", ""),
                 source.optString("url", ""),
                 source.optString("dns_base", ""),
+                source.optString("playlist_url", ""),
                 source.optString("urlM3u8", ""));
         String type = firstNonEmpty(source.optString("type", ""), source.optString("format", ""));
         String username = firstNonEmpty(source.optString("username", ""), source.optString("user", ""));
-        String password = source.optString("password", "");
+        String password = firstNonEmpty(source.optString("password", ""), source.optString("pass", ""));
         boolean xtream = type.toLowerCase().contains("xtream") || type.toLowerCase().contains("m3u_plus") || (!username.isEmpty() && !password.isEmpty());
         return xtream ? BackendClient.normalizeServerBase(original) : original;
+    }
+
+    private static String hostOnly(String value) {
+        try {
+            java.net.URI uri = new java.net.URI(value);
+            return uri.getHost() == null ? value : uri.getHost();
+        } catch (Exception ignored) {
+            return value;
+        }
+    }
+
+    private static String escape(String value) {
+        return value == null ? "" : value.replace("\\", "\\\\").replace("\"", "\\\"");
     }
 
     private static String firstNonEmpty(String... values) {

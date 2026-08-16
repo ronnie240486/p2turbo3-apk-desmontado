@@ -66,7 +66,8 @@ public final class ProviderSessionBootstrap {
             edit.putBoolean("is_xui", true);
             edit.putString("version", user.optString("version", ""));
             edit.putInt("revision", user.optInt("revision", 0));
-            edit.putString("url_data", BackendClient.normalizeServerBase(first(server == null ? "" : server.optString("url", ""), base)));
+            String sessionBase = BackendClient.normalizeServerBase(first(server == null ? "" : server.optString("url", ""), base));
+            edit.putString("url_data", hostOnly(sessionBase));
             edit.putString("port", server == null ? "" : server.optString("port", ""));
             edit.putString("https_port", server == null ? "" : server.optString("https_port", ""));
             edit.putString("server_protocol", server == null ? "https" : server.optString("server_protocol", "https"));
@@ -74,6 +75,10 @@ public final class ProviderSessionBootstrap {
             edit.putInt("timestamp_now", server == null ? 0 : server.optInt("timestamp_now", 0));
             edit.putString("time_now", server == null ? "" : server.optString("time_now", ""));
             edit.putString("timezone", server == null ? "" : server.optString("timezone", ""));
+            edit.putString("login_type", "one_ui");
+            edit.putBoolean("select_playlist", false);
+            edit.putBoolean("select_xui", true);
+            edit.putString("any_name", "");
             edit.putBoolean("first_open", false);
             edit.putBoolean("islogged", true);
             edit.putBoolean("autologin", true);
@@ -99,6 +104,15 @@ public final class ProviderSessionBootstrap {
 
     private static String first(String primary, String fallback) {
         return primary == null || primary.isEmpty() ? fallback : primary;
+    }
+
+    private static String hostOnly(String value) {
+        try {
+            java.net.URI uri = new java.net.URI(value);
+            return uri.getHost() == null ? value : uri.getHost();
+        } catch (Exception ignored) {
+            return value;
+        }
     }
 
     private static String read(InputStream stream) throws Exception {

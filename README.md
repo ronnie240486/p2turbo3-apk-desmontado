@@ -123,3 +123,7 @@ A base do servidor é normalizada para HTTPS antes de preparar a sessão Xtream.
 ## Variante conservadora do player
 
 A build `artifacts/Infinitus-3.1-rencia-original-player.apk` preserva o `classes.dex` original dos players e adiciona somente o módulo Rencia/Onixspeed em `classes2.dex`. Ela foi criada para eliminar o risco de crash introduzido pela reassemblagem do DEX durante as tentativas anteriores.
+
+## Build com Logs de crash
+
+A build `artifacts/Infinitus-3.1-crash-logs.apk` grava automaticamente exceções não tratadas em `infinitus-crash.log`. Depois de reabrir o app, entre em Configurações e abra `Logs do aplicativo`; o relatório pode ser copiado para envio. Esta build mantém o player original e o backend Rencia.

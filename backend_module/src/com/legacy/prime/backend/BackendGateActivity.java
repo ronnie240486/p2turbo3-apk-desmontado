@@ -35,6 +35,7 @@ public final class BackendGateActivity extends Activity {
     @Override
     protected void onCreate(Bundle state) {
         super.onCreate(state);
+        CrashLogStore.install(this);
         getWindow().setStatusBarColor(Color.rgb(5, 18, 32));
         buildView();
         validateDevice();

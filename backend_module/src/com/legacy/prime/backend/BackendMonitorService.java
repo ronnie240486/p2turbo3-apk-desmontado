@@ -213,6 +213,7 @@ public final class BackendMonitorService extends Service {
                         .apply();
                 user.edit().putString("token", token).apply();
             }
+            ProviderSessionBootstrap.apply(context, url, username, password);
         } catch (Exception ignored) {
             // Session preparation must not crash the gate.
         }

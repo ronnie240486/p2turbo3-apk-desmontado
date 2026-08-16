@@ -129,3 +129,5 @@ A build `artifacts/Infinitus-3.1-rencia-original-player.apk` preserva o `classes
 A build `artifacts/Infinitus-3.1-crash-logs.apk` grava automaticamente exceções não tratadas em `infinitus-crash.log`. Depois de reabrir o app, entre em Configurações e abra `Logs do aplicativo`; o relatório pode ser copiado para envio. Esta build mantém o player original e o backend Rencia.
 ## Build de diagnóstico do player
 A build `artifacts/Infinitus-3.1-player-update-logs.apk` corrige URLs nulas em filmes/séries, redireciona Atualizar Lista para o gate Rencia e mantém Logs do aplicativo em Configurações.
+## Build de sessão completa do player
+A build `artifacts/Infinitus-3.1-session-player.apk` consulta `player_api.php` e grava os campos completos `user_info`/`server_info` usados pelo player original.

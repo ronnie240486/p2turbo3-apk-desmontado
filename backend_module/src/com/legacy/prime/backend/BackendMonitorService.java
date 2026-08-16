@@ -202,7 +202,7 @@ public final class BackendMonitorService extends Service {
                     .putInt("live_format", 1)
                     .putString("status", "1")
                     .putInt("auth", 1)
-                    .putString("url_data", first.optString("url_data", url))
+                    .putString("url_data", BackendClient.normalizeServerBase(firstNonEmpty(first.optString("url_data", ""), url)))
                     .putString("server_api_url", config.optString("server_api_url", ""))
                     .apply();
 

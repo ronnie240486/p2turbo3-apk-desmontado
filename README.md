@@ -113,3 +113,9 @@ O módulo continua aceitando `token_api`, `api_token`, `sports_token` e `token` 
 A build `artifacts/Infinitus-3.1-player-token.apk` corrige o fechamento ao iniciar filmes, séries ou canais quando `url_completa` não vem no Intent. O player agora usa a sessão nativa, com `dns_base` normalizado para a base do servidor em listas `m3u_plus`, usuário/senha preservados e contêiner `mp4` como padrão quando necessário.
 
 A aba Futebol continua usando o token fornecido pelo painel (`token_api`, `api_token`, `sports_token` ou `token`). O APK original não contém um token esportivo fixo; sem um desses campos no backend, a aba não consegue autenticar por segurança.
+
+## Build Rencia + fonte M3U Onixspeed
+
+A build `artifacts/Infinitus-3.1-rencia-onixspeed.apk` mantém o Rencia como backend de autorização e usa a fonte de conteúdo apenas quando ela é devolvida pelo endpoint `guim.php` para o MAC autorizado. A fonte M3U/Xtream atual é Onixspeed; ela não foi embutida no APK e suas credenciais não são registradas em logs.
+
+A base do servidor é normalizada para HTTPS antes de preparar a sessão Xtream. A lista validada possui canais, filmes e séries. O token da aba Futebol continua sendo uma credencial independente, fornecida pelo backend no campo `token`/`token_api`.

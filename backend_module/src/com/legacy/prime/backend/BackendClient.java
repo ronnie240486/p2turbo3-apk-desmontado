@@ -126,7 +126,8 @@ public final class BackendClient {
         try {
             URI uri = new URI(raw);
             if (uri.getScheme() != null && uri.getRawAuthority() != null) {
-                return uri.getScheme() + "://" + uri.getRawAuthority();
+                String scheme = "http".equalsIgnoreCase(uri.getScheme()) ? "https" : uri.getScheme();
+                return scheme + "://" + uri.getRawAuthority();
             }
         } catch (Exception ignored) {
             // Fall back to conservative string normalization below.

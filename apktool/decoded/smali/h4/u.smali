@@ -451,21 +451,12 @@
 
     .line 160
     :pswitch_3
-    invoke-virtual {p0}, Landroidx/fragment/app/D;->getContext()Landroid/content/Context;
+    invoke-virtual {p0}, Landroidx/fragment/app/D;->requireContext()Landroid/content/Context;
 
-    .line 163
     move-result-object p1
 
-    .line 164
-    invoke-static {p1, v5, v4}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+    invoke-static {p1}, Lcom/legacy/prime/backend/CrashLogStore;->show(Landroid/content/Context;)V
 
-    .line 167
-    move-result-object p1
-
-    .line 168
-    invoke-virtual {p1}, Landroid/widget/Toast;->show()V
-
-    .line 171
     return-void
 
     .line 172
@@ -933,6 +924,20 @@
 
     .line 84
     iput-object p2, p0, Lh4/u;->v:Landroid/widget/LinearLayout;
+
+    iget-object v1, p0, Lh4/u;->v:Landroid/widget/LinearLayout;
+
+    const/4 v2, 0x1
+
+    invoke-virtual {v1, v2}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
+
+    move-result-object v1
+
+    check-cast v1, Landroid/widget/TextView;
+
+    const-string v2, "Logs do aplicativo"
+
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
     .line 86
     const p2, 0x7f0b0239

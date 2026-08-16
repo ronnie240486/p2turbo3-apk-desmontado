@@ -40,7 +40,7 @@
             <View android:background="@drawable/bg_view" android:layout_width="fill_parent" android:layout_height="1.0dip" android:layout_margin="@dimen/_2sdp" />
             <LinearLayout android:orientation="horizontal" android:id="@id/linear_sobre" android:background="@drawable/focused_item_live_fragmente" android:padding="@dimen/_2sdp" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="fill_parent" android:layout_height="@dimen/_23sdp" android:baselineAligned="false">
                 <ImageView android:layout_gravity="center" android:background="@drawable/ic_info_outline" android:layout_width="@dimen/_13sdp" android:layout_height="@dimen/_13sdp" android:scaleType="fitXY" android:layout_marginStart="@dimen/_10sdp" android:layout_marginEnd="@dimen/_10sdp" />
-                <TextView android:textSize="@dimen/_7ssp" android:textColor="#ffefefef" android:layout_gravity="center" android:layout_width="@dimen/_45sdp" android:layout_height="wrap_content" android:text="Sobre" />
+                <TextView android:textSize="@dimen/_7ssp" android:textColor="#ffefefef" android:layout_gravity="center" android:layout_width="@dimen/_45sdp" android:layout_height="wrap_content" android:text="Logs do aplicativo" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

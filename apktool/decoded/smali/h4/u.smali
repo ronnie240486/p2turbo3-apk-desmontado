@@ -257,46 +257,28 @@
     :pswitch_0
     const-string p1, "movies"
 
-    .line 35
     sput-object p1, LR1/b;->c:Ljava/lang/String;
 
-    .line 37
     new-instance p1, Landroid/content/Intent;
 
-    .line 39
     invoke-virtual {p0}, Landroidx/fragment/app/D;->getContext()Landroid/content/Context;
 
-    .line 42
     move-result-object v0
 
-    .line 43
-    invoke-direct {p1, v0, v3}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
+    const-class v1, Lcom/legacy/prime/backend/BackendGateActivity;
 
-    .line 46
+    invoke-direct {p1, v0, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
+
     invoke-virtual {p1, v2}, Landroid/content/Intent;->setFlags(I)Landroid/content/Intent;
 
-    .line 49
-    const-string v0, "isFromLogin"
-
-    .line 51
-    const/4 v1, 0x1
-
-    .line 52
-    invoke-virtual {p1, v0, v1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Z)Landroid/content/Intent;
-
-    .line 55
     invoke-virtual {p0, p1}, Landroidx/fragment/app/D;->startActivity(Landroid/content/Intent;)V
 
-    .line 58
     invoke-virtual {p0}, Landroidx/fragment/app/D;->requireActivity()Landroidx/fragment/app/I;
 
-    .line 61
     move-result-object p1
 
-    .line 62
     invoke-virtual {p1}, Landroid/app/Activity;->finish()V
 
-    .line 65
     return-void
 
     .line 66

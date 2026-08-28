@@ -133,3 +133,9 @@ A build `artifacts/Infinitus-3.1-player-update-logs.apk` corrige URLs nulas em f
 A build `artifacts/Infinitus-3.1-session-player.apk` consulta `player_api.php` e grava os campos completos `user_info`/`server_info` usados pelo player original.
 ## Variante DEX original + Rencia
 A build `artifacts/Infinitus-3.1-original-dex-rencia.apk` preserva o `classes.dex` original byte a byte e mantém a integração Rencia em `classes2.dex`, evitando a reassemblagem dos players.
+
+## Infinitus 2.8.8 — APK real fornecido
+
+Foi adicionada a cópia exata do APK Infinitus 2.8.8 fornecido para comparação e futuras mudanças. O arquivo original está em `original/Infinitus2.8.8.apk`, a cópia no catálogo de artefatos está em `artifacts/Infinitus2.8.8.apk` e a árvore decodificada completa está em `original/Infinitus2.8.8-decoded/`. O SHA-256 do APK é `2ad03eda860939d636c2109d3de6c9cc3c43b3a37f8067612bb86c0b78f5d485`.
+
+A versão real usa `@mipmap/ic_launcher` como ícone, `@drawable/servebanner` como banner e exibe o nome `Infinitus`. Os recursos de logo e ícone da árvore principal foram alinhados com os arquivos extraídos dessa versão, sem substituir os APKs históricos da pasta `artifacts/`.

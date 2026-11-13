@@ -1,0 +1,652 @@
+name: Infinitus 2.8.8 - painel Railway e Assistindo
+
+# Corrige o APK pronto do Infinitus 2.8.8 SEM reconstruir o app inteiro:
+#  - painel: Railway no lugar do Manus (o Manus fica so como reserva se o Railway nao responder)
+#  - heartbeat manda "__idle__" quando nada esta tocando (o painel apaga o "Assistindo")
+#  - "Assistindo": informa o filme/serie/TV ao vivo que o cliente esta vendo, na hora em que abre ou fecha
+#  - a ordem que o painel manda junto do heartbeat (mostrar aviso, trocar lista...) tambem e executada
+# Roda sozinho quando este arquivo e enviado. O APK sai em Actions > (execucao) > Artifacts.
+on:
+  push:
+    paths:
+      - ".github/workflows/infinitus-painel.yml"
+  workflow_dispatch:
+    inputs:
+      apk:
+        description: "APK de origem (caminho dentro do repositorio)"
+        required: true
+        default: "artifacts/Infinitus2.8.8.apk"
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar so o APK escolhido
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            ${{ inputs.apk || 'artifacts/Infinitus2.8.8.apk' }}
+          sparse-checkout-cone-mode: false
+
+      - name: Instalar ferramentas (smali/baksmali e zip)
+        run: |
+          exec > >(tee /tmp/step.log) 2>&1
+          trap 'rc=$?; sleep 1; [ $rc -eq 0 ] || echo "::error title=Falhou::$(tail -n 14 /tmp/step.log | cut -c1-260 | sed "s/%/%25/g" | paste -sd "|" -)"' EXIT
+          sudo apt-get update -q
+          sudo apt-get install -y -q smali zip unzip
+          command -v baksmali && command -v smali
+
+      - name: Chave de assinatura (guardada em cache entre execucoes)
+        uses: actions/cache@v4
+        with:
+          path: infinitus.keystore
+          key: infinitus-keystore-v1
+
+      - name: Criar a chave se ainda nao existir
+        run: |
+          if [ ! -f infinitus.keystore ]; then
+            keytool -genkeypair -v -keystore infinitus.keystore -storepass infinitus-test-key -keypass infinitus-test-key \
+              -alias infinitus -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Infinitus Test"
+          fi
+
+      - name: Corrigir o APK
+        env:
+          APK: ${{ inputs.apk || 'artifacts/Infinitus2.8.8.apk' }}
+        run: |
+          exec > >(tee /tmp/step.log) 2>&1
+          trap 'rc=$?; sleep 1; [ $rc -eq 0 ] || echo "::error title=Falhou::$(tail -n 14 /tmp/step.log | cut -c1-260 | sed "s/%/%25/g" | paste -sd "|" -)"' EXIT
+          set -euo pipefail
+          test -f "$APK" || { echo "APK nao encontrado: $APK"; exit 1; }
+          mkdir -p work/dex work/new work/jc work/d8 src/com/legacy/prime/rencia
+          cd work/dex && unzip -q "../../$APK" 'classes*.dex' && cd ../..
+
+          cat > patch_infinitus.py <<'PYEOF'
+          """Patches de smali do Infinitus 2.8.8 (rodam sobre a pasta gerada pelo baksmali do dex do painel).
+          Uso: python3 patch_infinitus.py <pasta_smali> <arquivo_de_relatorio>
+          Cada patch aplicado e anotado no relatorio; o workflow confere no fim que todos entraram."""
+          import os, re, sys
+
+          OLD = "https://renciaapp.manus.space"
+          NEW = "https://renciaapp-production.up.railway.app"
+          PKG = "Lcom/legacy/prime/rencia/"
+          BACKEND = PKG + "RenciaBackend;"
+          SERVICE = PKG + "RenciaSyncService;"
+          WATCH = PKG + "InfinitusWatch;"
+
+          FALLBACK_METHODS = """
+
+          # ---- Infinitus: Railway primeiro, Manus so como reserva ----
+          .method private static shouldFallback(Ljava/lang/Throwable;)Z
+              .locals 2
+
+              invoke-virtual {p0}, Ljava/lang/Throwable;->getMessage()Ljava/lang/String;
+
+              move-result-object v0
+
+              if-eqz v0, :fb_yes
+
+              const-string v1, "backend_http_4"
+
+              invoke-virtual {v0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+              move-result v0
+
+              if-nez v0, :fb_no
+
+              :fb_yes
+              const/4 v0, 0x1
+
+              return v0
+
+              :fb_no
+              const/4 v0, 0x0
+
+              return v0
+          .end method
+
+          .method private static toFallback(Ljava/lang/String;)Ljava/lang/String;
+              .locals 3
+
+              const/4 v0, 0x0
+
+              if-eqz p0, :fb_done
+
+              const-string v1, "https://renciaapp-production.up.railway.app/"
+
+              invoke-virtual {p0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+              move-result v2
+
+              if-eqz v2, :fb_done
+
+              const-string v1, "https://renciaapp-production.up.railway.app"
+
+              const-string v2, "https://renciaapp.manus.space"
+
+              invoke-virtual {p0, v1, v2}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
+
+              move-result-object v0
+
+              :fb_done
+              return-object v0
+          .end method
+
+          .method public static get(Ljava/lang/String;)Lorg/json/JSONObject;
+              .locals 3
+              .annotation system Ldalvik/annotation/Throws;
+                  value = {
+                      Ljava/lang/Exception;
+                  }
+              .end annotation
+
+              :fb_get_start
+              invoke-static {p0}, Lcom/legacy/prime/rencia/RenciaBackend;->getOnce(Ljava/lang/String;)Lorg/json/JSONObject;
+
+              move-result-object v0
+
+              :fb_get_end
+              .catch Ljava/lang/Exception; {:fb_get_start .. :fb_get_end} :fb_get_catch
+
+              return-object v0
+
+              :fb_get_catch
+              move-exception v0
+
+              invoke-static {v0}, Lcom/legacy/prime/rencia/RenciaBackend;->shouldFallback(Ljava/lang/Throwable;)Z
+
+              move-result v1
+
+              if-eqz v1, :fb_get_throw
+
+              invoke-static {p0}, Lcom/legacy/prime/rencia/RenciaBackend;->toFallback(Ljava/lang/String;)Ljava/lang/String;
+
+              move-result-object v1
+
+              if-eqz v1, :fb_get_throw
+
+              invoke-static {v1}, Lcom/legacy/prime/rencia/RenciaBackend;->getOnce(Ljava/lang/String;)Lorg/json/JSONObject;
+
+              move-result-object v0
+
+              return-object v0
+
+              :fb_get_throw
+              throw v0
+          .end method
+
+          .method public static postJson(Ljava/lang/String;Lorg/json/JSONObject;)Lorg/json/JSONObject;
+              .locals 3
+              .annotation system Ldalvik/annotation/Throws;
+                  value = {
+                      Ljava/lang/Exception;
+                  }
+              .end annotation
+
+              :fb_post_start
+              invoke-static {p0, p1}, Lcom/legacy/prime/rencia/RenciaBackend;->postOnce(Ljava/lang/String;Lorg/json/JSONObject;)Lorg/json/JSONObject;
+
+              move-result-object v0
+
+              :fb_post_end
+              .catch Ljava/lang/Exception; {:fb_post_start .. :fb_post_end} :fb_post_catch
+
+              return-object v0
+
+              :fb_post_catch
+              move-exception v0
+
+              invoke-static {v0}, Lcom/legacy/prime/rencia/RenciaBackend;->shouldFallback(Ljava/lang/Throwable;)Z
+
+              move-result v1
+
+              if-eqz v1, :fb_post_throw
+
+              invoke-static {p0}, Lcom/legacy/prime/rencia/RenciaBackend;->toFallback(Ljava/lang/String;)Ljava/lang/String;
+
+              move-result-object v1
+
+              if-eqz v1, :fb_post_throw
+
+              invoke-static {v1, p1}, Lcom/legacy/prime/rencia/RenciaBackend;->postOnce(Ljava/lang/String;Lorg/json/JSONObject;)Lorg/json/JSONObject;
+
+              move-result-object v0
+
+              return-object v0
+
+              :fb_post_throw
+              throw v0
+          .end method
+          """
+
+          IDLE_BLOCK = """
+              # Infinitus: sem conteudo tocando, manda a sentinela __idle__ (limpa o "Assistindo" no painel)
+              if-eqz p1, :inf_idle
+
+              invoke-virtual {p1}, Ljava/lang/String;->trim()Ljava/lang/String;
+
+              move-result-object v0
+
+              invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
+
+              move-result v0
+
+              if-eqz v0, :inf_keep
+
+              :inf_idle
+              const-string p1, "__idle__"
+
+              :inf_keep
+          """
+
+          START_COMMAND = """.method public onStartCommand(Landroid/content/Intent;II)I
+              .locals 3
+
+              # Infinitus: sincroniza na hora quando o app avisa que o conteudo assistido mudou
+              if-eqz p1, :inf_skip
+
+              const-string v0, "infinitus_sync_now"
+
+              const/4 v1, 0x0
+
+              invoke-virtual {p1, v0, v1}, Landroid/content/Intent;->getBooleanExtra(Ljava/lang/String;Z)Z
+
+              move-result v0
+
+              if-eqz v0, :inf_skip
+
+              iget-object v0, p0, Lcom/legacy/prime/rencia/RenciaSyncService;->executor:Ljava/util/concurrent/ExecutorService;
+
+              new-instance v1, Lcom/legacy/prime/rencia/RenciaSyncService$1$1;
+
+              iget-object v2, p0, Lcom/legacy/prime/rencia/RenciaSyncService;->tick:Ljava/lang/Runnable;
+
+              check-cast v2, Lcom/legacy/prime/rencia/RenciaSyncService$1;
+
+              invoke-direct {v1, v2}, Lcom/legacy/prime/rencia/RenciaSyncService$1$1;-><init>(Lcom/legacy/prime/rencia/RenciaSyncService$1;)V
+
+              invoke-interface {v0, v1}, Ljava/util/concurrent/ExecutorService;->execute(Ljava/lang/Runnable;)V
+
+              :inf_skip
+              const/4 p1, 0x1
+
+              return p1
+          .end method"""
+
+
+          def read(p):
+              return open(p, encoding="utf-8").read()
+
+
+          def write(p, t):
+              open(p, "w", encoding="utf-8").write(t)
+
+
+          def find(root, suffix):
+              out = []
+              for dp, _, fs in os.walk(root):
+                  for n in fs:
+                      p = os.path.join(dp, n).replace("\\", "/")
+                      if p.endswith("/" + suffix):
+                          out.append(os.path.join(dp, n))
+              return out
+
+
+          def one(root, suffix):
+              found = find(root, suffix)
+              return found[0] if len(found) == 1 else None
+
+
+          def method_span(text, header_regex):
+              """Devolve (inicio, fim) da primeira .method que casa com header_regex ate o seu .end method."""
+              m = re.search(header_regex, text)
+              if not m:
+                  return None
+              start = text.rfind("\n.method", 0, m.end())
+              start = start + 1 if start >= 0 else m.start()
+              end = text.find(".end method", m.end())
+              if end < 0:
+                  return None
+              return start, end + len(".end method")
+
+
+          def patch_backend(root, report):
+              p = one(root, "com/legacy/prime/rencia/RenciaBackend.smali")
+              if not p:
+                  return
+              t = read(p)
+              orig = t
+              # 1) a checagem de host passa a aceitar os dois dominios (Railway e Manus)
+              t, n = re.subn(r'const-string v0, "https://renciaapp\.manus\.space/"', 'const-string v0, "https://renciaapp"', t)
+              if n == 2:
+                  report.add("host_check")
+              # 2) get/postJson viram getOnce/postOnce; entram novas versoes com reserva
+              t, a = re.subn(r"\.method public static get\(Ljava/lang/String;\)Lorg/json/JSONObject;",
+                             ".method public static getOnce(Ljava/lang/String;)Lorg/json/JSONObject;", t)
+              t, b = re.subn(r"\.method public static postJson\(Ljava/lang/String;Lorg/json/JSONObject;\)Lorg/json/JSONObject;",
+                             ".method public static postOnce(Ljava/lang/String;Lorg/json/JSONObject;)Lorg/json/JSONObject;", t)
+              if a == 1 and b == 1:
+                  t = t.rstrip("\n") + "\n" + FALLBACK_METHODS
+                  report.add("reserva_manus")
+              # 3) Railway no lugar do Manus em todo o resto
+              if OLD in t:
+                  t = t.replace(OLD, NEW)
+                  report.add("painel")
+              # 4) heartbeat: sentinela __idle__
+              span = method_span(t, r"\.method public static heartbeat\(Ljava/lang/String;Ljava/lang/String;\)Lorg/json/JSONObject;")
+              if span:
+                  s, e = span
+                  body = t[s:e]
+                  k = body.find(".end annotation")
+                  if k >= 0 and "inf_idle" not in body:
+                      k += len(".end annotation")
+                      body = body[:k] + "\n" + IDLE_BLOCK + body[k:]
+                      t = t[:s] + body + t[e:]
+                      report.add("heartbeat")
+              if t != orig:
+                  write(p, t)
+
+
+          def patch_home(root, report):
+              p = one(root, "com/legacy/prime/rencia/ImperioHomeController.smali")
+              if not p:
+                  return
+              t = read(p)
+              if OLD in t:
+                  write(p, t.replace(OLD, NEW))
+                  report.add("painel_home")
+
+
+          def patch_service(root, report):
+              p = one(root, "com/legacy/prime/rencia/RenciaSyncService.smali")
+              if not p:
+                  return
+              t = read(p)
+              orig = t
+              # a) ordem recebida junto do heartbeat tambem e executada (o painel ja a marcou como entregue)
+              pat = re.compile(r"(invoke-static \{v0, v1\}, " + re.escape(BACKEND) +
+                               r"->heartbeat\(Ljava/lang/String;Ljava/lang/String;\)Lorg/json/JSONObject;\s+move-result-object v1\n)")
+              if pat.search(t) and "inf_cmd" not in t:
+                  t = pat.sub(lambda m: m.group(1) + "\n    # Infinitus: executa a ordem que veio na resposta do heartbeat\n    invoke-direct {p0, v0, v1}, " +
+                              SERVICE + "->processCommand(Ljava/lang/String;Lorg/json/JSONObject;)V\n", t, count=1)
+                  report.add("heartbeat_comando")
+              # b) sincronizacao imediata ao receber o aviso do app
+              span = method_span(t, r"\.method public onStartCommand\(Landroid/content/Intent;II\)I")
+              if span:
+                  s, e = span
+                  t = t[:s] + START_COMMAND + t[e:]
+                  report.add("sync_imediato")
+              # c) registra o observador de telas (Assistindo) quando o servico sobe
+              span = method_span(t, r"\.method public onCreate\(\)V")
+              if span:
+                  s, e = span
+                  body = t[s:e]
+                  m = re.search(r"invoke-super \{p0\}, Landroid/app/Service;->onCreate\(\)V\n", body)
+                  if m and "InfinitusWatch" not in body:
+                      ins = ("\n    # Infinitus: observa as telas de reproducao para informar o conteudo assistido\n"
+                             "    invoke-virtual {p0}, Landroid/app/Service;->getApplication()Landroid/app/Application;\n\n"
+                             "    move-result-object v0\n\n"
+                             "    invoke-static {v0}, " + WATCH + "->install(Landroid/app/Application;)V\n")
+                      body = body[:m.end()] + ins + body[m.end():]
+                      t = t[:s] + body + t[e:]
+                      report.add("observador")
+              if t != orig:
+                  write(p, t)
+
+
+          class Report(set):
+              pass
+
+
+          def lint(root):
+              """Confere o basico do smali alterado: .method/.end method em par e rotulos definidos."""
+              for name in ("RenciaBackend.smali", "RenciaSyncService.smali", "ImperioHomeController.smali"):
+                  p = one(root, "com/legacy/prime/rencia/" + name)
+                  if not p:
+                      continue
+                  t = read(p)
+                  assert len(re.findall(r"^\.method ", t, re.M)) == len(re.findall(r"^\.end method", t, re.M)), name + ": .method sem par"
+                  # rotulos dentro de cada metodo
+                  for m in re.finditer(r"^\.method .*?^\.end method", t, re.M | re.S):
+                      body = m.group(0)
+                      defined = set(re.findall(r"^\s*(:[A-Za-z0-9_]+)\s*$", body, re.M))
+                      used = set(re.findall(r"[ ,{](:[A-Za-z0-9_]+)", re.sub(r"^\s*:[A-Za-z0-9_]+\s*$", "", body, flags=re.M)))
+                      used = {u for u in used if not u.startswith("::")}
+                      missing = used - defined
+                      assert not missing, name + ": rotulo sem definicao " + str(missing) + " em " + body.splitlines()[0]
+
+
+          def main():
+              root, out = sys.argv[1], sys.argv[2]
+              report = Report()
+              patch_backend(root, report)
+              patch_home(root, report)
+              patch_service(root, report)
+              lint(root)
+              with open(out, "a") as f:
+                  for item in sorted(report):
+                      f.write(item + "\n")
+              print("Patches deste dex:", sorted(report))
+
+
+          if __name__ == "__main__":
+              main()
+          PYEOF
+
+          cat > src/com/legacy/prime/rencia/InfinitusWatch.java <<'JEOF'
+          package com.legacy.prime.rencia;
+
+          import android.app.Activity;
+          import android.app.Application;
+          import android.content.Context;
+          import android.content.Intent;
+          import android.content.SharedPreferences;
+          import android.os.Bundle;
+          import android.os.Handler;
+          import android.os.Looper;
+
+          import java.util.Iterator;
+          import java.util.Locale;
+
+          /**
+           * Infinitus: informa ao painel o que o cliente esta assistindo ("Assistindo").
+           * Grava o texto em rencia_backend/current_content (que o heartbeat do RenciaSyncService ja le)
+           * e pede uma sincronizacao imediata ao servico. Quando sai da tela de reproducao, limpa o texto
+           * (o heartbeat envia __idle__ e o painel apaga o "Assistindo").
+           */
+          public final class InfinitusWatch implements Application.ActivityLifecycleCallbacks {
+              private static final String PREFS = "rencia_backend";
+              private static final String KEY = "current_content";
+              private static boolean installed = false;
+
+              private final Application app;
+              private final Handler handler = new Handler(Looper.getMainLooper());
+              private final Runnable push = new Runnable() {
+                  @Override
+                  public void run() {
+                      try {
+                          Intent intent = new Intent(app, Class.forName("com.legacy.prime.rencia.RenciaSyncService"));
+                          intent.putExtra("infinitus_sync_now", true);
+                          app.startService(intent);
+                      } catch (Throwable ignored) {
+                          // o ciclo normal de 60 s continua funcionando
+                      }
+                  }
+              };
+
+              private InfinitusWatch(Application app) {
+                  this.app = app;
+              }
+
+              public static synchronized void install(Application app) {
+                  if (installed || app == null) {
+                      return;
+                  }
+                  installed = true;
+                  app.registerActivityLifecycleCallbacks(new InfinitusWatch(app));
+              }
+
+              private static boolean isLive(Activity a) {
+                  return a.getClass().getName().endsWith(".LiveTvActivity1");
+              }
+
+              private static boolean isPlayer(Activity a) {
+                  String n = a.getClass().getName();
+                  return n.contains(".activity.player.") && !n.endsWith("YouTubePlayerActivity");
+              }
+
+              private static String kind(Activity a) {
+                  if (isLive(a)) {
+                      return "TV ao vivo";
+                  }
+                  String n = a.getClass().getName();
+                  return (n.contains("Series") || n.contains("Episodes")) ? "Série" : "Filme";
+              }
+
+              /** Procura no Intent um extra de texto que pareca o nome do conteudo. */
+              private static String findName(Activity a) {
+                  try {
+                      Intent intent = a.getIntent();
+                      Bundle extras = intent == null ? null : intent.getExtras();
+                      if (extras == null) {
+                          return "";
+                      }
+                      String best = "";
+                      Iterator<String> keys = extras.keySet().iterator();
+                      while (keys.hasNext()) {
+                          String key = keys.next();
+                          String low = key.toLowerCase(Locale.US);
+                          boolean nameLike = low.contains("name") || low.contains("title") || low.contains("nome") || low.contains("titulo");
+                          if (!nameLike || low.contains("cat") || low.contains("caller") || low.contains("user") || low.contains("icon") || low.contains("container")) {
+                              continue;
+                          }
+                          Object value = extras.get(key);
+                          if (value instanceof String) {
+                              String text = ((String) value).trim();
+                              if (!text.isEmpty() && !text.startsWith("http")) {
+                                  if (low.equals("movie_name") || low.equals("extra_name")) {
+                                      return text;
+                                  }
+                                  if (best.isEmpty()) {
+                                      best = text;
+                                  }
+                              }
+                          }
+                      }
+                      return best;
+                  } catch (Throwable ignored) {
+                      return "";
+                  }
+              }
+
+              private void set(String value) {
+                  try {
+                      SharedPreferences prefs = app.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+                      String old = prefs.getString(KEY, "");
+                      if (!value.equals(old)) {
+                          prefs.edit().putString(KEY, value).apply();
+                      }
+                  } catch (Throwable ignored) {
+                      return;
+                  }
+                  // espera um instante: se for trocar de uma tela de reproducao para outra, envia so o resultado final
+                  handler.removeCallbacks(push);
+                  handler.postDelayed(push, 1500);
+              }
+
+              @Override
+              public void onActivityResumed(Activity a) {
+                  if (!isLive(a) && !isPlayer(a)) {
+                      return;
+                  }
+                  String name = findName(a);
+                  String kind = kind(a);
+                  set(name.isEmpty() ? kind : kind + ": " + name);
+              }
+
+              @Override
+              public void onActivityPaused(Activity a) {
+                  if (isLive(a) || isPlayer(a)) {
+                      set("");
+                  }
+              }
+
+              @Override public void onActivityCreated(Activity a, Bundle b) { }
+              @Override public void onActivityStarted(Activity a) { }
+              @Override public void onActivityStopped(Activity a) { }
+              @Override public void onActivitySaveInstanceState(Activity a, Bundle b) { }
+              @Override public void onActivityDestroyed(Activity a) { }
+          }
+          JEOF
+
+          # 1) smali: so os dex que ainda apontam para o Manus
+          : > work/applied.txt
+          CHANGED=""
+          for F in work/dex/classes*.dex; do
+            NAME=$(basename "$F")
+            if grep -aq "renciaapp.manus.space" "$F"; then
+              echo "== $NAME"
+              baksmali d "$F" -o "work/smali_$NAME"
+              python3 patch_infinitus.py "work/smali_$NAME" work/applied.txt
+              VER=$(head -c 7 "$F" | tail -c 3)
+              case "$VER" in 037) API=24 ;; 038) API=26 ;; 039) API=28 ;; *) API=15 ;; esac
+              echo "dex $NAME versao $VER -> smali --api $API"
+              smali a --api "$API" "work/smali_$NAME" -o "work/new/$NAME"
+              CHANGED="$CHANGED $NAME"
+            fi
+          done
+          test -n "$CHANGED" || { echo "Nenhum dex com o painel encontrado"; exit 1; }
+          sort -u work/applied.txt > work/applied_u.txt
+          echo "Patches aplicados:"; cat work/applied_u.txt
+          for P in host_check reserva_manus painel painel_home heartbeat heartbeat_comando sync_imediato observador; do
+            grep -qx "$P" work/applied_u.txt || { echo "ERRO: patch '$P' nao foi aplicado"; exit 1; }
+          done
+
+          # 2) codigo novo (Assistindo): compila e vira um dex a parte
+          BT=$(ls -d "$ANDROID_SDK_ROOT"/build-tools/* | sort -V | tail -1)
+          ANDROID_JAR=$(ls "$ANDROID_SDK_ROOT"/platforms/android-*/android.jar | sort -V | tail -1)
+          echo "build-tools: $BT | android.jar: $ANDROID_JAR"
+          javac -nowarn -Xlint:-options --release 8 -cp "$ANDROID_JAR" -d work/jc src/com/legacy/prime/rencia/InfinitusWatch.java
+          "$BT/d8" --release --min-api 21 --lib "$ANDROID_JAR" --output work/d8 $(find work/jc -name '*.class')
+          NDEX=$(ls work/dex/classes*.dex | wc -l)
+          NEWDEX="classes$((NDEX + 1)).dex"
+          cp work/d8/classes.dex "work/new/$NEWDEX"
+          CHANGED="$CHANGED $NEWDEX"
+          echo "Dex novo do Assistindo: $NEWDEX"
+
+          # 3) monta o APK
+          cp "$APK" work/unsigned.apk
+          zip -q -d work/unsigned.apk 'META-INF/*' || true
+          (cd work/new && zip -q ../unsigned.apk $CHANGED)
+          "$BT/zipalign" -p -f 4 work/unsigned.apk work/aligned.apk
+          OUT="Infinitus-painel.apk"
+          "$BT/apksigner" sign --ks infinitus.keystore --ks-key-alias infinitus \
+            --ks-pass pass:infinitus-test-key --key-pass pass:infinitus-test-key \
+            --out "$OUT" work/aligned.apk
+          "$BT/apksigner" verify --verbose "$OUT"
+
+          # conferencia final dentro do APK pronto
+          python3 - <<'PYEOF'
+          import zipfile
+          z = zipfile.ZipFile("Infinitus-painel.apk")
+          names = z.namelist()
+          dexnames = [n for n in names if n.startswith("classes") and n.endswith(".dex")]
+          dex = b"".join(z.read(n) for n in dexnames)
+          assert b"renciaapp-production.up.railway.app" in dex, "Railway nao encontrado no APK final"
+          # o Manus so pode aparecer como reserva dentro do modulo do painel
+          for n in dexnames:
+              raw = z.read(n)
+              if b"renciaapp.manus.space" in raw:
+                  assert b"Lcom/legacy/prime/rencia/RenciaBackend;" in raw and b"shouldFallback" in raw, "Manus fora da reserva em " + n
+          assert b"__idle__" in dex, "Sentinela __idle__ ausente"
+          holders = [n for n in dexnames if b"Lcom/legacy/prime/rencia/InfinitusWatch;" in z.read(n) and b"infinitus_sync_now" in z.read(n)]
+          assert holders, "Codigo do Assistindo ausente no APK final"
+          assert "AndroidManifest.xml" in names and "resources.arsc" in names
+          print("OK: Railway primeiro, Manus de reserva, __idle__ e Assistindo presentes (dex do Assistindo:", holders, ")")
+          PYEOF
+          sha256sum "$OUT"
+
+      - name: Guardar o APK ajustado
+        uses: actions/upload-artifact@v4
+        with:
+          name: Infinitus-painel
+          path: Infinitus-painel.apk
